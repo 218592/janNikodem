@@ -1,0 +1,99 @@
+{% extends 'firstPage/baseFirstPage.html.twig' %}
+
+{# {% block title %}{% endblock %} #}
+
+{% block stylesheets %}
+<link href="{{ asset('CSS/posts/postAbout.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+
+<div class="postContainer">
+   
+            <div class="postPreTitle">
+                <h4>
+                    KILKA SŁÓW O&nbsp;PROJEKCIE
+                </h4>
+            </div>
+    <div class="postAbout">
+        <article>
+            <div class="postTitle">
+                <h2>
+                    DLACZEGO SYSSITIA?
+                </h2>
+            </div>
+            <div class="postAuthor">
+                <h5>
+                    <i class="fas fa-user-tie"></i> Mariusz Najwer | <i class="far fa-clock"></i> 1.10.2018r.
+                </h5>
+            </div>
+
+            <div class="postText">
+                <img src="{{ asset('IMG/bitbucket.png') }}" alt="https://xkcd.com/1296/" class="firstImg">  
+                <div class="link"><a  target="_blank" href="https://bitbucket.org/najwer23/syssitia-app/src/master/"><i class="fab fa-bitbucket"></i> Bitbucket!</a></div>
+                
+                {# <p class="indent"></p> #}
+                <p class="indent"><b>Grecja (1)</b>, państwo w południowo-wschodniej Europie, nad Morzem Śródziemnym; obejmuje południową część Półwyspu Bałkańskiego oraz Wyspy Jońskie (na Morzu Jońskim), Kretę (na Morzu Śródziemnym) i archipelagi wysp: Sporady Południowe, Sporady Północne i Cyklady (na Morzu Egejskim)</p>
+                <p class="indent"><b>Sparta (2)</b>, Spạrti, Spártē, m. w południowej Grecji, w regionie Peloponez, w dolinie rz. Ewrotas, między górami Tajget i Parnon;
+— 14,4 tysięcy mieszkańców (2009). Ośrodek administracyjny nomosu Lakonia. Ośrodek handlowy regionu rolniczego; niewielki przemysł spożywczy (winiarski, olejarski), rzemiosło artystyczne; ośrodek turystyczny.</p>
+                <p class="indent"><b>The Holy Trinity Monastery (Greek: Μονή Αγίας Τριάδος) (3)</b>, Meteory od zawsze fascynowały, chociaż popularność turystyczną zdobyły dopiero w 1981 roku, tuż po.. premierze filmu z Jamesem Bondem Tylko dla twoich oczu, w którym Meteory były jedną z kluczowych lokacji. Z produkcją filmu wiąże się ciekawa historia. Biskup grecki (za odpowiednią opłatą) zezwolił ekipie filmowej na kręcenie...
+                <p class="indent"><b>Syssytie [gr. syssitía ‘wspólnota posiłków’] (4)</b>, nazwa stowarzyszenia składającego się z kilkunastu dorosłych mężczyzn stołujących się razem, na wspólny koszt — element obowiązkowej organizacji społecznej w archaicznej i klasycznej Sparcie; </p>
+                <p class="indent"><b>Zdrowie (5)</b> wg Światowej Organizacji Zdrowia (WHO) to stan cechujący się uzyskaniem dobrego samopoczucia na poziomie fizycznym, psychicznym i społecznym. Nie jest on zatem związany tylko z brakiem choroby czy niedomaganiem.</p>
+                <p class="indent"><b>Wypowiedź lakoniczna</b> jest to wypowiedź krótka, zwięzła, streszczająca cały tekst w kilku zrozumiałych zdaniach. Wywodzi się z południowych terenów Starożytnej Grecji, Lakonii. Uczono jej starożytnych Spartan, nim skończyli 7 lat, później bowiem kończyli edukację przenosząc się na koszary, by uczyć się walki.</p>
+
+                <br>
+                <p class="indent">Okeyy.. lakoniczny wstęp historyczny mamy już za sobą. Przyszedł czas na zaprezentowanie aplikacji. Pomysł narodził się w dniu, kiedy skończył mi się bezpłatny okers próbny i zostałem zbombardowany reklamami dosłownie wszędzie. Po chwili frustracji sięgnąłem jeszcze większego dna i zainstalowałem kolejną aplikację do monitorowania treningów (pompek, podciągnięc, brzuszków, przysziadów) To był błąd. Mimo, że było ciekawie przez chwilę, to brakowało jej kilka możliwości. "No zrobiłbym to lepiej!" krzyknąłem, a kilka
+                sekund poóżniej usłyszałem "No dawaj!". Był to chłopak krzyczący do znajomego, żeby podał mu piłkę. Zamknąłem okno. Dokończyłem pierogi (kupne, ale jakie dobre!) i wtedy przpomniała mi się fizjognomia mojej babci, a chwilę póżniej jej ulubiony cytat "kto sam ze sobą nosi ten nikogo nie prosi". Stało się. Kilka szybkich szkicy bazy danych, szybkie zerknięcie do dawnych projektów, parę zapytań do stack overflow i okazuje się, że diabeł nie taki straszny jak go malują!</p>
+
+                <p class="indent">Historyczne wprowadzenie. Jest. Jakaś naracja. Jest. Czas na fakty! Wróć, jeszcze dedykacja. Ale czy ja mogę zrobić dedykację w ósmym akapicie? Dedykuję tę aplikację najlepszym (cough) jedynym (/cough) znajomymy, dzięki którym poznałem świat Symfony (lato 2017 lub lato '17). Okropne wspomnienia, lecz retrospekcje po Sprintach były niezapomniane (pracowaliśmy w metodyce Scrum), do dziś je pamiętam! Ostatni commit był w trakcie wygłaszania prezentacji na zaliczenie. Dostaliśmy 5,0. Ciekawa historia, ale na inne spotkanie. Strona "o projekcie" ma być krótka, treściwa i zwięzła, tzn. lakoniczna! Czwarta nad ranem, jutro (dzisiaj) wykład na 7:30, może innym razem ten wykład</p>
+               
+                <br>
+                <p>Lakoniczny opis aplikacji:</p>
+                <ol class="advantages">
+                <li>Technologie
+                    <ol>
+                    <li>HTML5, CSS3, JavaScript</li>
+                    <li>jQuery, AJAX</li>
+                    <li>PHP7.2, Symfony4.14 (MVC), ORM Doctrine, Twig, MySQL, JSON, Swift Mailer</li>
+                    <li>RWD, chrome, mozzila, edge</li>
+                    </ol>
+                </li>
+                    <li>Opcja możliwości kontaktu z właścicielem za pomocą formularza kontaktowego</li>
+                    <li>Walidacja formularza kontaktowego</li>
+                    <li>Opcja rejestracji konta w serwisie</li>
+                    <li>Hashowanie haseł użytkownika</li>
+                    <li>Wykorzystanie tokena do uwierzytelnienia konta</li>
+                    <li>Opcja logowania</li>
+                    <li>Ochrona przed wstrzyknięciem SQL</li>
+                    <li>Ochrona csrf</li>
+                    <li>Możliwość przypomnienia hasła</li>
+                    <li>Opcja logowania za pomocą nazwy użytkownika lub adresem email</li>
+                    <li>Firewall - osobne możliwości dla adminstratora i użytkownika</li>
+                    <li>Firmowy blog do prezentacji informacji związanych z aplikacją</li>
+                    <li>Połączenie postów z bazą danych (genereowanie automatyczne linków do posta)</li>
+                    <li>Stronicowanie postów na blogu</li>
+                    <li>Linki posta wiedzą gdzie wrócić, w momenice dodania nowego posta (popularny problem)</li>
+                    <li>Ochrona formularzy przed podwójnym kliknięciem</li>
+                    <li></li>
+                </ol> 
+                
+                <br>
+                <i class="fas fa-dove"></i>
+
+                <p><br>Żródła:<p/>
+                <ol class="source">
+                    <li><p>https://encyklopedia.pwn.pl/haslo/Grecja;4169041.html</p></li>
+                    <li><p>https://encyklopedia.pwn.pl/haslo/Sparta;3978030.html</p></li>
+                    <li><p>https://www.podrozepoeuropie.pl/greckie-meteory-zwiedzanie/</p></li>
+                    <li><p>https://encyklopedia.pwn.pl/haslo/syssytie;3982196.html</p></li>
+                    <li><p>http://www.izp.wroclaw.pl/</p></li>
+                </ol> 
+
+                
+            </div>
+        </article>
+    </div>
+</div>
+
+
+{% endblock %}

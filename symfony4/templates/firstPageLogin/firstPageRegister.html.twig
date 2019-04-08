@@ -1,0 +1,64 @@
+{% extends 'firstPage/baseFirstPage.html.twig' %}
+
+{# {% block title %}{% endblock %} #}
+
+{% block stylesheets %}
+<link href="{{ asset('CSS/firstPage/firstPageLogin.css') }}" rel="stylesheet" />
+<link href="{{ asset('CSS/firstPage/firstPageNav.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block body %}
+
+    <section class="loginForm">
+        <h2> Załóż konto! </h2>
+
+            
+        <form action="{{ path('register') }}" method="post">
+            
+            <div class="iconWithInput">
+                <div class="icon-ph"><i class="fas fa-user-lock"></i></div>
+                <input type="text" value="{{ _username }}" name="username" placeholder="Nick" onfocus="this.placeholder=''" onblur="this.placeholder='Nick'">
+            </div>
+            
+            <div class="iconWithInput">
+                <div class="icon-ph"><i class="fas fa-at"></i></div>
+                <input type="text" value="{{ _email }}" name="email" placeholder="Adres email" onfocus="this.placeholder=''" onblur="this.placeholder='Adres email'">
+            </div>
+
+            <div class="iconWithInput">
+                <div class="icon-ph"><i class="fas fa-key"></i></div>
+                <input type="password" name="pass" placeholder="Hasło" onfocus="this.placeholder=''" onblur="this.placeholder='Hasło'">
+            </div>  
+
+            <div class="iconWithInput">
+                <div class="icon-ph"><i class="fas fa-key"></i></div>
+                <input type="password" name="pass2" placeholder="Powtórz hasło" onfocus="this.placeholder=''" onblur="this.placeholder='Powtórz hasło'">
+            </div>  
+
+            <button type="submit" id="submitMail" name="btnRegister" class="btn wave">Załóż konto</button>
+
+            {% if errorCode|default(0) == 1 %}
+                <div class="error">
+                    <i class="fas fa-exclamation-triangle"></i> {{error|default(0) }}
+                </div> 
+            {% endif %}
+
+        </form>
+
+        <script>
+            $('form').submit(function() {
+                $(this).find("button[type='submit']").prop('disabled',true);
+            });
+
+            if ( window.history.replaceState ) {
+                window.history.replaceState( null, null, window.location.href );
+            } 
+        </script>
+
+    </section> 
+
+{% endblock %}

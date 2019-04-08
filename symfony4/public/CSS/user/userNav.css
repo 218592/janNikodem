@@ -1,0 +1,187 @@
+.hamburger {
+    display: block;
+    width: 74px;
+    height: 80px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+    padding: 20px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    -webkit-transition: background-color 0.5s ease-out;
+    -moz-transition: background-color 0.5s ease-out;
+    -o-transition: background-color 0.5s ease-out;
+    transition: background-color 0.5s ease-out;
+}
+
+.hamburger:hover {
+    /* background: #0F7142; */
+}
+
+.hamburgerIcon {
+    position: relative;
+    margin-top: 18px;
+    margin-bottom: 7px;
+}
+
+.hamburgerIcon,
+.hamburgerIcon:before,
+.hamburgerIcon:after {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background-color: white;
+    -moz-transition-property: background-color, -moz-transform;
+    -o-transition-property: background-color, -o-transform;
+    -webkit-transition-property: background-color, -webkit-transform;
+    transition-property: background-color, transform;
+    -moz-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+}
+
+.hamburgerIcon:before,
+.hamburgerIcon:after {
+    position: absolute;
+    content: "";
+}
+
+.hamburgerIcon:before {
+    top: -8px;
+}
+
+.hamburgerIcon:after {
+    top: 8px;
+}
+
+.hamburger.active .hamburgerIcon {
+    background-color: transparent;
+}
+
+.hamburger.active .hamburgerIcon:before,
+.hamburger.active .hamburgerIcon:after {
+    background-color: red;
+}
+
+.hamburger.active .hamburgerIcon:before {
+    -moz-transform: translateY(8px) rotate(45deg);
+    -ms-transform: translateY(8px) rotate(45deg);
+    -webkit-transform: translateY(8px) rotate(45deg);
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active .hamburgerIcon:after {
+    -moz-transform: translateY(-8px) rotate(-45deg);
+    -ms-transform: translateY(-8px) rotate(-45deg);
+    -webkit-transform: translateY(-8px) rotate(-45deg);
+    transform: translateY(-8px) rotate(-45deg);
+
+}
+
+.fat-nav {
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: rgb(0, 0, 0);
+    -moz-transform: scale(1.4);
+    -ms-transform: scale(1.4);
+    -webkit-transform: scale(1.4);
+    transform: scale(1.4);  
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    -webkit-transition-property: -webkit-transform;
+    transition-property: transform;
+    -moz-transition-duration: 0.4s;
+    -o-transition-duration: 0.4s;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    display: table;
+    table-layout: fixed;
+    margin-left: 0;
+}
+
+
+.fat-nav.active {
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+
+
+
+
+.fat-nav ul {
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+}
+
+.fat-nav li {
+    list-style-type: none;
+    text-align: center;
+    padding: 10px;
+    font-size: 1.5em;
+    -webkit-transition: background-color 0.3s ease-out;
+    -moz-transition: background-color 0.3s ease-out;
+    -o-transition: background-color 0.3s ease-out;
+    transition: background-color 0.3s ease-out;
+}
+
+.fat-nav li {
+    color: rgb(132, 131, 134);
+
+}
+
+
+.fat-nav li:hover {
+    color: rgb(46, 46, 46);
+}
+
+
+.fat-nav-link {
+    text-decoration: none;
+    color: #7F7F7F;
+
+}
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 800px) {
+
+    .fat-nav li {
+        font-size: 1.5em;
+    }
+
+}
+
+
+@media screen and (max-width: 500px) {}

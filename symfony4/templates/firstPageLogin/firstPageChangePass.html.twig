@@ -1,0 +1,48 @@
+{% extends 'firstPage/baseFirstPage.html.twig' %}
+
+{# {% block title %}{% endblock %} #}
+
+{% block stylesheets %}
+<link href="{{ asset('CSS/firstPage/firstPageLogin.css') }}" rel="stylesheet" />
+<link href="{{ asset('CSS/firstPage/firstPageNav.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+
+    <section class="loginForm">
+
+
+        {% if redirect == 0 %}
+            <script>
+                    window.location.replace("/");
+            </script>
+       {% else %}
+
+            <h2> Zmień hasło! </h2>
+
+            <form action="{{ path('changePass') }}" method="post">
+                
+                <div class="iconWithInput">
+                    <div class="icon-ph"><i class="fas fa-key"></i></div>
+                    <input type="password" name="pass" placeholder="Hasło" onfocus="this.placeholder=''" onblur="this.placeholder='Hasło'">
+                </div>  
+
+                <div class="iconWithInput">
+                    <div class="icon-ph"><i class="fas fa-key"></i></div>
+                    <input type="password" name="pass2" placeholder="Hasło" onfocus="this.placeholder=''" onblur="this.placeholder='Hasło'">
+                </div>  
+
+                <button name="btnChangePass" type="submit" id="changePass" class="btn wave">Zmień hasło</button>
+
+                {% if errorCode|default(0) == 1 %}
+                    <div class="error">
+                        <i class="fas fa-exclamation-triangle"></i> {{error}}
+                    </div> 
+                {% endif %}
+            </form>
+
+        {% endif %}
+
+    </section> 
+
+{% endblock %}
