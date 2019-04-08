@@ -1,0 +1,50 @@
+{% extends 'firstPage/baseFirstPage.html.twig' %}
+
+{# {% block title %}{% endblock %} #}
+
+{% block stylesheets %}
+<link href="{{ asset('CSS/firstPage/firstPageLogin.css') }}" rel="stylesheet" />
+<link href="{{ asset('CSS/firstPage/firstPageNav.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+
+    <section class="loginForm">
+        <h2> Panel Logowania </h2>
+
+        {# ciekawy artykul #}
+        {# https://blog.martinhujer.cz/symfony-forms-with-request-objects/ #}
+        <form action="{{ path('user_login') }}" method="post">
+            <div class="iconWithInput">
+                <div class="icon-ph"><i class="fas fa-user-lock"></i></div>
+                <input type="text" name="_username" value="{{ last_username }}" placeholder="Adres email lub nick" onfocus="this.placeholder=''" onblur="this.placeholder='Adres email lub nick'">
+            </div>
+
+            <div class="iconWithInput">
+                <div class="icon-ph"><i class="fas fa-key"></i></div>
+                <input type="password" name="_password" placeholder="Hasło" onfocus="this.placeholder=''" onblur="this.placeholder='Hasło'">
+            </div>  
+
+            <button type="submit" id="submitMail" class="btn wave">ZALOGUJ SIĘ</button>
+
+            {# csrf protection #}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+             {#
+                If you want to control the URL the user
+                is redirected to on success (more details below)
+                <input type="hidden" name="_target_path" value="/account" />
+              #}
+
+            {% if error %}
+                <div class="error">
+                    <i class="fas fa-exclamation-triangle"></i> Błędne dane logowania!
+                </div> 
+            {% endif %}
+        </form>
+
+        <div class="link"><a href="/forgot-pass">Zapomniałem hasła</a></div>
+        <div class="link"><a href="/register">Załóż konto</a></div>
+    </section> 
+
+{% endblock %}

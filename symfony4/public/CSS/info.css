@@ -1,0 +1,83 @@
+body {
+    /* background-color: #F0F1D5; */
+    /* https: //www.toptal.com/designers/subtlepatterns/?s=sos */
+    font-family: 'Lato', sans-serif;
+    background-color: #EFEFEF;
+}
+
+.infoRegisterAfter, .infoRegisterActive{
+    width: 100%;
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.red{
+    color: red;
+}
+
+.link a {
+    display: block;
+    height: 50px;
+    width: 302px;
+    background: #FF530D;
+    text-decoration: none;
+    line-height: 50px;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+    color: #fff;
+    font-weight: lighter;
+}
+
+.link a:hover {
+    background: #BF3E0A;
+    -webkit-transition: opacity 0.3s;
+    -moz-transition: opacity 0.3s;
+    -ms-transition: opacity 0.3s;
+    -o-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+    transition: all .2s ease-in-out;
+}
+
+@media screen and (max-width: 320px),
+screen and (max-height: 500px) {
+    
+    
+    .infoRegisterAfter {
+
+        display: block;
+        width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        margin-top: 50px;
+        padding-bottom: 25px;
+        height: 100%;
+    }
+
+
+}
+
+
+@media screen and (max-height: 300px) {
+
+
+    .infoRegisterActive {
+
+        display: block;
+        width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        margin-top: 50px;
+        padding-bottom: 25px;
+        height: 100%;
+    }
+
+
+}

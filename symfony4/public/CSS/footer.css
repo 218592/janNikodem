@@ -1,0 +1,46 @@
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    position: relative;
+}
+
+.push {
+    padding-bottom: 225px;
+}
+
+
+footer {
+    background: linear-gradient(141deg, #565855 0%, #393D38 41%, #282629 75%);
+    bottom: 0;
+    position: absolute;
+    min-height: 125px;
+    width: 100%;
+    background-color: rgb(36, 39, 43);
+
+}
+
+.laws {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 120px;
+    text-align: center;
+}
+
+.laws p {
+    padding: 2px;
+    margin: 2px;
+    color: white;
+}
+
+.endline {
+    content: " ";
+    width: 100%;
+    height: 5px;
+    background: black;
+}
