@@ -1,0 +1,64 @@
+{% extends 'workout/baseWorkout.html.twig' %}
+
+{% block stylesheets %}
+<link href="{{ asset('CSS/workout/pushUp/workoutContinue.css') }}" rel="stylesheet" />  
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('JS/workout/workout.js')}}"></script>
+{% endblock %}
+
+
+{% block body %}
+
+
+<section class="trainingParent">
+
+    <div id="maxNumberOfWorkout" class="maxNumberOfWorkout">9</div>
+        <div class="trainingChild PC">
+            <h2>To Do List</h2>
+            <div id="workCheck1" class="trainingChildChild"><p>Try to do <span> </span> repetitions <span> </span></p></div>
+            <div id="workCheck2" class="trainingChildChild"><p>Try to do <span> </span> repetitions <span> </span></p></div>
+            <div id="workCheck3" class="trainingChildChild"><p>Try to do <span> </span> repetitions <span> </span></p></div>
+            <div id="workCheck4" class="trainingChildChild"><p>Try to do <span> </span> repetitions <span> </span></p></div>
+            <div id="workCheck5" class="trainingChildChild"><p>Try to do <span> </span> repetitions <span> </span></p></div>
+            <div id="workCheck6" class="trainingChildChild"><p>Try to do <span> </span> repetitions <span> </span></p></div>
+            <div id="workCheck7" class="trainingChildChild"><p>Try to do <span> </span> repetitions <span> </span></p></div>
+            <div id="workCheck8" class="trainingChildChild"><p>Try to do <span> </span> repetitions <span> </span></p></div>
+            <div id="workCheck9" class="trainingChildChild"><p>Try to do <span> </span> repetitions <span> </span></p></div>
+            <div id="sum" class="sum"></div>
+        </div>
+
+
+        <div class="trainingChild">
+            <h2>Level 1. Day 2</h2>
+            <div class="trainingMapParent">
+                <div id="border1" class="trainingMapChild"><p id="work1Srv">400</p><p id="work1">0</p></div>
+                <div id="border2"class="trainingMapChild"><p id="work2Srv">100</p><p id="work2">0</p></div>
+                <div id="border3"class="trainingMapChild"><p id="work3Srv">100</p><p id="work3">0</p></div>
+                <div id="border4"class="trainingMapChild"><p id="work4Srv">100</p><p id="work4">0</p></div>
+                <div id="border5"class="trainingMapChild"><p id="work5Srv">10</p><p id="work5">0</p></div>
+                <div id="border6"class="trainingMapChild"><p id="work6Srv">100</p><p id="work6">0</p></div>
+                <div id="border7"class="trainingMapChild"><p id="work7Srv">100</p><p id="work7">0</p></div>
+                <div id="border8"class="trainingMapChild"><p id="work8Srv">100</p><p id="work8">0</p></div>
+                <div id="border9"class="trainingMapChild"><p id="work9Srv">100</p><p id="work9">0</p></div>
+            </div>
+            <div id="timer" class="timer">10</div>
+
+            <div class="menuTrainingParent">
+                <div class="menuTrainingChild insertButton" onclick="subtractWorkout()"><i class="fas fa-minus fa-1x"></i></div>
+                <div class="menuTrainingChild playButton" onclick="playTimer()" ><i class="far fa-play-circle fa-1x"></i></div>
+                <div class="menuTrainingChild insertButton" onclick="addWorkout()"><i class="fas fa-plus fa-1x"></i></div>
+            </div>
+
+            <div class="menuTrainingParent">
+                <div class="menuTrainingChild prevButton" onclick="leftFollow()"><i class="fas fa-backward fa-1x"></i></div>
+                <div class="menuTrainingChild playButton" onclick="fastStep()"><i class="fas fa-step-forward fa-1x"></i></div>
+                <div class="menuTrainingChild nextButton" onclick="rightFollow()"><i class="fas fa-forward fa-1x"></i></div>
+            </div>
+
+         <div class="link"><a href="/">Zakończ</a></div>
+    </div>
+</section>
+
+{% endblock %}

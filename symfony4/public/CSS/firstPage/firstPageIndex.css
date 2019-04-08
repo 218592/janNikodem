@@ -1,0 +1,227 @@
+.parentMenuFirstPage{
+    margin-left: auto;
+    margin-right: auto;
+    height: calc(100vh - 80px);
+    
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+   
+}
+
+.childMenuFirstPage{
+    width: 50%;
+    position: relative;
+}
+
+
+/* out */
+.opacityImageBackgroundB,
+.opacityImageBackgroundA,
+.opacityImageBackgroundL,
+.opacityImageBackgroundC{
+    width: 100%;
+    height: 100%;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40%, auto;
+
+    -webkit-transition: background-image 0.2s ease-in-out;
+    -moz-transition: background-image 0.2s ease-in-out;
+    -o-transition: background-image 0.2s ease-in-out;
+    transition: background-image 0.2s ease-in-out;
+}
+
+/* in */
+label:hover>.opacityImageBackgroundA,
+label:hover>.opacityImageBackgroundB,
+label:hover>.opacityImageBackgroundC,
+label:hover>.opacityImageBackgroundL {
+    opacity: 1;
+    cursor: pointer;
+    -webkit-transition: background-image 0.2s ease-in-out;
+    -moz-transition: background-image 0.2s ease-in-out;
+    -o-transition: background-image 0.2s ease-in-out;
+    transition: background-image 0.2s ease-in-out;
+}
+
+/* powrot transition */
+.opacityImageBackgroundB{
+    background-image: url("../../IMG/blog0.svg");
+}
+.opacityImageBackgroundA{
+    background-image: url("../../IMG/about0.svg");
+}
+.opacityImageBackgroundL{
+    background-image: url("../../IMG/login0.svg");
+}
+.opacityImageBackgroundC {
+    background-image: url("../../IMG/contact0.svg");
+    
+}
+.corner h2 {
+    position: absolute;
+    color: white;
+
+    right: 0;
+    bottom: 0;
+    margin-right: 20px;
+
+    /* bug z opacity dla chrome */
+    backface-visibility: hidden;
+    cursor: pointer;
+    font-weight: lighter;
+}
+
+
+
+/* 1 */
+.leftTop{
+    /* background: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); */
+    background: linear-gradient(141deg, #8E2800 0%, #962A00 51%, #701F00 75%);
+    background-color: #8E2800; 
+       
+}
+
+label:hover>.opacityImageBackgroundB {
+    background-image: url("../../IMG/blog.svg");
+    background-color: #8E2800;
+}
+
+
+
+/* 2 */
+.rightTop {
+    background: linear-gradient(141deg, #FFB03B 0%, #E59E35 51%, #cf810b 75%);
+    background-color: #FFB03B;
+}
+
+label:hover>.opacityImageBackgroundA {
+    background-image: url("../../IMG/about.svg");
+     background-color: #FFB03B;
+}
+
+
+
+/* 3 */
+.leftBottom {
+    background: linear-gradient(-45deg, #552D7F 0%, #5E328C 51%, #442465 75%);
+    background-color: #552D7F;
+
+}
+
+label:hover .opacityImageBackgroundL {
+    background-image: url("../../IMG/login.svg");
+    background-color: #552D7F;
+
+}
+
+
+
+
+/* 4 */
+.rightBottom {
+    background: linear-gradient(270deg, #023C66 0%, #024373 41%, #012D4C 75%);
+    background-color: #023C66;
+    transition: background-image 1s ease-in-out;
+    
+    
+}
+
+label:hover > .opacityImageBackgroundC{
+    background-image: url("../../IMG/contact.svg");
+    background-color: #023C66;    
+}
+
+
+
+
+@media screen and (min-width: 600px) {
+
+    .leftBottom:focus,
+    .rightTop:focus,
+    .leftTop:focus,
+    .rightBottom:focus {
+        opacity: 1;
+        cursor: pointer;
+        background-size: 40%, auto;
+        background-repeat: no-repeat;
+        background-position: center;
+        
+    }
+
+    .leftTop:focus {
+         background-image: url("../../IMG/blog0.svg");
+    }
+    .leftBottom:focus {
+         background-image: url("../../IMG/login0.svg");
+    }
+    .rightBottom:focus {
+         background-image: url("../../IMG/contact0.svg");
+    }
+    .rightTop:focus {
+         background-image: url("../../IMG/about0.svg");
+    }
+}
+
+
+
+@media screen and (max-width: 600px) {
+    
+    .opacityImageBackgroundB,
+    .opacityImageBackgroundA,
+    .opacityImageBackgroundL,
+    .opacityImageBackgroundC {
+         background-size: 70%, auto;
+    }
+
+    .leftBottom h2,
+    .leftTop h2,
+    .rightBottom h2,
+    .rightTop h2 {
+        margin: 0;
+        width: 120px;
+        text-align: center;
+        top: auto;
+        bottom: 0;
+        left: calc(50% - 60px);
+        margin-bottom: 20px;
+    }
+}
+
+
+@media screen and (min-height: 900px) {
+
+    .opacityImageBackgroundB,
+    .opacityImageBackgroundA,
+    .opacityImageBackgroundL,
+    .opacityImageBackgroundC,
+    .leftBottom:focus,
+    .rightTop:focus,
+    .leftTop:focus,
+    .rightBottom:focus {
+        background-size: 70%, auto;
+    }
+
+}
+
+
+@media screen and (max-height: 450px) {
+
+    .opacityImageBackgroundB,
+    .opacityImageBackgroundA,
+    .opacityImageBackgroundL,
+    .opacityImageBackgroundC,
+    .leftBottom:focus,
+    .rightTop:focus,
+    .leftTop:focus,
+    .rightBottom:focus {
+        background-size: 40%, auto;
+    }
+
+}
+
+
+
+

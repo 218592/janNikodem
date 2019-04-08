@@ -1,0 +1,16 @@
+{% extends 'workout/baseWorkout.html.twig' %}
+
+{% block stylesheets %}
+<link href="{{ asset('CSS/workout/pushUp/workoutCase.css') }}" rel="stylesheet" />  
+{% endblock %}
+
+{% block body %}
+
+<section class="workoutCaseParent">         
+    <a href="/user/push-up/test" class="workoutCaseChild new"><p><i class="far fa-plus-square fa-3x"></i></p><h1>Test</h1></a>
+    <a href="/user/push-up/continue" class="workoutCaseChild continue"><p><i class="fas fa-angle-double-right fa-3x"></i></p><h1>Continue</h1></a>
+    <a href="/user/push-up/history" class="workoutCaseChild history"><p><i class="fas fa-landmark fa-3x"></i></p><h1>History</h1></a>
+    <a href="#" class="workoutCaseChild warmup"><p><i class="fas fa-fire fa-3x"></i></p><h1>Warm Up</h1></a>
+</section>
+   
+{% endblock %}

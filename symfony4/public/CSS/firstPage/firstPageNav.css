@@ -1,0 +1,120 @@
+
+body {
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+}
+
+h1,h3,ul,li {
+    padding: 0;
+    margin: 0;
+}
+
+.titleApp {
+    width: 100%;
+    height: 80px;
+    background-color: #0F7142;
+    text-align: center;
+    line-height: 80px;
+    color: white;
+
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.childTitleApp, .childTitleAppPC {
+    flex-basis: 33.33%;
+}
+
+.childTitleAppHam{
+    flex-basis: calc(33.33% - 85px);
+    padding-left: 85px;
+    text-align: left;
+}
+
+
+.undo{
+    color: white;
+
+    display: inline-block;
+    width: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    /* display: flex; */
+    /* justify-content: center; */
+}
+
+.social a, .socialHam a {
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    padding-right: 12px;
+    padding-left: 12px;
+    height: 80px;
+    line-height: 80px;
+    color: white;
+
+    -webkit-transition: background-color 0.5s ease-out;
+    -moz-transition: background-color 0.5s ease-out;
+    -o-transition: background-color 0.5s ease-out;
+    transition: background-color 0.5s ease-out;
+}
+
+.social {
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    display: flex;
+    list-style-type: none;
+    justify-content: center;
+}
+
+.socialHam {
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    display: flex;
+    list-style-type: none;
+    justify-content: flex-end;
+}
+
+.social li, .socialHam li {
+    width: 50px;
+}
+
+.fb:hover {
+    color: white;
+    background-color: #3b5998;
+}
+
+.g:hover {
+    color: white;
+    background-color: #D34836;
+}
+
+.lin:hover {
+    color: white;
+    background-color: #0077B5;
+}
+
+.twit:hover {
+    color: white;
+    background-color: #00aced;
+}
+
+
+@media screen and (max-width: 800px) {
+
+    .pc,
+    .social {
+        display: none;
+    }
+
+    .childTitleApp {
+        flex-basis: auto;
+    }
+
+    .childTitleAppPC, .childTitleAppHam{
+        display: none;
+    }
+
+}

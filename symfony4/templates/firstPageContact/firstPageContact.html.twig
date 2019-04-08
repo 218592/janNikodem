@@ -1,0 +1,74 @@
+{% extends 'firstPage/baseFirstPage.html.twig' %}
+
+{# {% block title %}{% endblock %} #}
+
+{% block stylesheets %}
+<link href="{{ asset('CSS/firstPage/firstPageContact.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="{{ asset('JS/AJAX/firstPageContact/firstPageContact.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+
+<section class="container">
+     
+    <section class="contactForm">
+        <h2> Napisz do nas! </h2>
+    
+
+        <form>
+            <div class="iconWithInput">
+                <div class="icon-ph"><i class="far fa-user-circle"></i></div>
+                <input type="text" name="name" placeholder="Imię" onfocus="this.placeholder=''" onblur="this.placeholder='Imię'" required>
+            </div>
+            
+
+            <div class="iconWithInput">
+                <div class="icon-ph"><i class="far fa-user-circle"></i></div>
+                <input type="text" name="surname" placeholder="Nazwisko" onfocus="this.placeholder=''" onblur="this.placeholder='Nazwisko'" required>
+            </div>
+            
+
+            <div class="iconWithInput">
+                <div class="icon-ph"><i class="far fa-star"></i></div>
+                <input type="text" name="topic" placeholder="Temat" onfocus="this.placeholder=''" onblur="this.placeholder='Temat'" required>
+            </div>
+            
+
+            <div class="iconWithInput">
+                <div class="icon-ph"><i class="far fa-envelope-open"></i></div>
+                <input type="email" name="email" placeholder="Adres email" onfocus="this.placeholder=''" onblur="this.placeholder='Adres email'" required>
+            </div>
+                
+            <textarea placeholder="Twoja wiadomość" id="textArea" type="text" name="text" onfocus="this.placeholder=''" onblur="this.placeholder='Twoja wiadomość'" required></textarea>
+            
+            <button type="button" id="submitMail" class="btn wave">WYŚLIJ</button>
+
+            <div class="spinnerWithText">
+                <div class="animation"><i class="fas fa-spinner"></i></div>
+                <div class="animation2">Proszę czekać...</div>
+            </div>
+            
+            <div id="infoFromAjaxFirstPageContact">
+            
+            </div>
+        </form>
+    </section>
+
+    <section class="address">
+        <h2> Nasz adres </h2>
+
+        <div class="contactInfo">
+            <p><i class="fas fa-map-pin"></i> Radosna 56/8, 53-332 Wrocław</p>
+            <p><i class="fas fa-phone"></i> (+48) 512 - 444 - 567</p>
+            <p><i class="fas fa-at"></i> wspaniala23@gmail.com</p>
+            <img src="IMG/aa.png">
+        </div>
+
+        </section>
+</section>
+
+{% endblock %}

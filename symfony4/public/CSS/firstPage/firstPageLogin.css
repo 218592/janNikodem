@@ -1,0 +1,200 @@
+
+
+body{
+    background-color: #EFEFEF;
+    /* background-color: #F0F1D5; */
+    /* https: //www.toptal.com/designers/subtlepatterns/?s=sos */
+    /* background-image: url("../../IMG/s.png"); */
+}
+
+
+
+
+.loginForm {
+    
+    width: 100%;
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    /* width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding-bottom: 50px;
+    margin-top: 80px; */
+}
+
+.loginForm h2 {
+    margin-top: 0;
+    color: #3F5765;
+}
+
+
+
+
+
+
+
+.iconWithInput .icon-ph {
+    display: inline-block;
+    padding-left: 12px;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 50px;
+    position: absolute;
+    z-index: 3;
+    /* color: #FF530D; */
+    color: #2B3A42;
+}
+
+
+.loginForm input[type="text"],
+.loginForm input[type="password"],
+.loginForm input[type="email"] {
+    width: 255px;
+    height: 48px;
+    border: solid;
+    border-width: 1px;
+    border-color: #FF530D;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    padding-left: 45px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    /* cursor: pointer; */
+    
+}
+
+.loginForm input[type="email"]::placeholder,
+.loginForm input[type="password"]::placeholder,
+.loginForm input[type="text"]::placeholder {
+    color: #7F7F7F;
+}
+
+.loginForm input[type="email"]:focus,
+.loginForm input[type="password"]:focus,
+.loginForm input[type="text"]:focus {
+    border: 1px solid #FF530D;
+    outline: #FF530D;
+}
+
+
+
+
+
+
+
+.btn {
+    background-color: WHITE;
+    border: 1px solid #FF530D;
+    color: #FF530D;
+    cursor: pointer;
+    align-self: center;
+    font-size: 1rem;
+    font-weight: 400;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.btn:focus {
+    color: #FF530D;
+    /* background-image: linear-gradient(45deg, #FF5856 50%, transparent 50%); */
+    outline: 0;
+    border-bottom: 2px solid #FF530D;
+}
+
+.btn:hover {
+    color: white;
+    outline: 0;
+}
+
+.btn:active{
+    color: green;
+    outline: 0;
+}
+
+.wave {
+    height: 50px;
+    width: 302px;
+    border-color: #FF530D;
+    color: #FF530D;
+    background-image: linear-gradient(45deg, #FF530D 50%, transparent 50%);
+    background-position: 100%;
+    background-size: 400%;
+    transition: background 300ms ease-in-out;
+}
+
+.wave:hover {
+    background-position: 0;
+}
+
+.link a {
+    display: block;
+    height: 50px;
+    width: 302px;
+    background: #3F5765;
+    text-decoration: none;
+    line-height: 50px;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+    color: #fff;
+    font-weight: lighter;
+}
+
+.link a:hover {
+    background: #2B3A42;
+    -webkit-transition: opacity 0.3s;
+    -moz-transition: opacity 0.3s;
+    -ms-transition: opacity 0.3s;
+    -o-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+    transition: all .2s ease-in-out;
+}
+
+
+
+
+
+
+
+.error {
+    font-weight: lighter;
+    background-color: #EA2E49;
+    margin-top: 15px;
+    /* text-align: center; */
+    width: 302px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 50px;
+    line-height: 50px;
+    /* margin-bottom: 15px; */
+    color: white;
+}
+
+
+
+@media screen and (max-width: 600px),
+screen and (max-height: 500px) {
+    .loginForm {
+
+        display: block;
+        width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        margin-top: 50px;
+        padding-bottom: 50px;
+        height: 100%;
+    }
+
+
+}

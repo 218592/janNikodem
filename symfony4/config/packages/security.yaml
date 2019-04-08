@@ -1,0 +1,39 @@
+security:
+    role_hierarchy:
+        ROLE_ADMIN:       [ROLE_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+    
+    providers:
+        in_memory: { memory: ~ }
+        user_area:
+            entity: { class: App\Entity\User }
+
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+       
+        user_area:
+            context: my
+            security: true
+            anonymous: true
+            provider: user_area
+            form_login: 
+                check_path: /user/login
+                login_path: /user/login
+                csrf_token_generator: security.csrf.token_manager
+            logout:
+                path: /logout
+                target: /
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+      
+
+           
+    access_control:
+          - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+          - { path: ^/user/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+          - { path: ^/user/, roles: ROLE_USER }
+        # - { path: ^/profile, roles: ROLE_USER }

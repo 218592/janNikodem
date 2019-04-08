@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="PL">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="Author" content="Mariusz Najwer" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="Mariusz Najwer" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <link rel="shortcut icon" href="{{ asset('IMG/fav.png')}}">
+
+        <title>{% block title %} {{namePage}} {% endblock %}</title>
+
+        <link href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin-ext" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">        
+
+        <style>img[alt*="www.000webhost.com"] {display: none;}</style>
+        
+        <link href="{{ asset('CSS/info.css') }}" rel="stylesheet" />
+    </head>
+
+<body>
+    
+    {% if redirect == 0 %}
+       <script>
+            window.location.replace("/");
+       </script>
+    {% else %}
+        <section class="infoRegisterAfter">
+            <div class="info">
+                <p>Użytkownik:</p>
+                <p class="red">{{username}}</p>
+                <p>Na podany adres email:</p>
+                <p class="red">{{email}}</p>
+                <p>wysłano link aktywacyjny!</p>
+                <p>Sprawdź swoją pocztę, żeby dokończyć rejestrację!</p>
+            </div>
+            <div class="link"><a href="/">Strona główna</a></div>
+            <div class="link"><a href="/user/login">Zaloguj się!</a></div>
+        </section>
+    {% endif %}
+
+</body>
+</html>
