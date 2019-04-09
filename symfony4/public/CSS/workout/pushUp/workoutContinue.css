@@ -1,0 +1,216 @@
+h2 {
+    padding: 0;
+    margin: 0;
+}
+
+.trainingParent {
+    color: rgb(132, 131, 134);
+    margin-top: 80px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.trainingChild {
+    width: 40%;
+}
+
+.trainingChild h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+
+
+
+
+
+
+.trainingMapParent {
+    /* background: green; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.trainingMapChild {
+    /* background: red; */
+    width: 26px;
+    text-align: center;
+    padding: 3px;
+    font-size: 14px;
+    border: 1px solid transparent;
+}
+
+
+.trainingChildChild {
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    text-align: center;
+    /* background: green; */
+}
+
+.sum {
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    text-align: left;
+    padding-left: 55px;
+}
+
+.trainingChild span {
+    width: 50px;
+    display: inline-block;
+    text-align: center;
+}
+
+
+
+
+
+
+.timer {
+    width: 302px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 30px;
+    letter-spacing: 1px;
+    text-align: center;
+    border: 1px solid #F03107;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+
+
+
+
+.maxNumberOfWorkout {
+    display: none;
+}
+
+.menuTrainingParent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.menuTrainingParent {
+    width: 304px;
+    margin-top: 15px;
+}
+
+
+.menuTrainingChild {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+.insertButton {
+    width: 120px;
+    height: 50px;
+    background: #F03107;
+    color: white;
+}
+
+.playButton {
+    height: 50px;
+    width: 50px;
+    background: rgb(21, 134, 36);
+    color: white;
+}
+
+.prevButton,
+.nextButton {
+    width: 120px;
+    height: 50px;
+    background: #ED2625;
+    color: white;
+}
+
+.insertButton:hover,
+.prevButton:hover,
+.nextButton:hover,
+.playButton:hover {
+    opacity: 0.8;
+    -webkit-transition: opacity 0.3s;
+    -moz-transition: opacity 0.3s;
+    -ms-transition: opacity 0.3s;
+    -o-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+    transition: all .2s ease-in-out;
+    cursor: pointer;
+}
+
+
+
+.empty {
+    display: none;
+}
+
+
+
+.link a {
+    text-align: center;
+    display: block;
+    height: 50px;
+    width: 302px;
+    background: #0D67B1;
+    text-decoration: none;
+    line-height: 50px;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #fff;
+    font-weight: bold;
+}
+
+.link a:hover {
+    background: #0094B1;
+    -webkit-transition: opacity 0.3s;
+    -moz-transition: opacity 0.3s;
+    -ms-transition: opacity 0.3s;
+    -o-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+    transition: all .2s ease-in-out;
+}
+
+
+@media screen and (max-width: 1000px) {
+    .trainingChild {
+        width: 50%;
+    }
+}
+
+
+
+@media screen and (max-width: 600px) {
+    .trainingChild {
+        width: 100%;
+    }
+
+    .PC {
+        display: none;
+    }
+
+    .trainingParent {
+        margin-top: 50px;
+    }
+}

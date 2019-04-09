@@ -1,0 +1,44 @@
+{% extends 'workout/baseWorkout.html.twig' %}
+
+{% block stylesheets %}
+<link href="{{ asset('CSS/workout/pushUp/workoutTest.css') }}" rel="stylesheet" />  
+{% endblock %}
+
+{% block body %}
+
+ 
+
+
+    <section class="test">
+        <h2><i class="fas fa-stethoscope"></i> Test!</h2>
+
+
+        <form action="{{ path('pushUpTest') }}" method="post">
+            <div class="iconWithInput">
+                <div class="icon-ph"><i class="fas fa-calculator"></i></div>
+                <input required type="number" name="inputTest" min="1" max="130" placeholder="Liczba powtórzeń (1-500)" onfocus="this.placeholder=''" onblur="this.placeholder='Liczba powtórzeń (1-500)'">
+            </div>
+           
+            <button type="submit" id="submitMail" name="btnTest" class="btn wave">Zatwierdź</button>
+
+             {% if errorCode == 1 %}
+                <div class="error">
+                    <i class="fas fa-exclamation-triangle"></i> {{error}}
+                </div> 
+            {% endif %}
+        
+        </form>
+   
+        <script>
+            $('form').submit(function() {
+                $(this).find("button[type='submit']").prop('disabled',true);
+            });
+
+            if ( window.history.replaceState ) {
+                window.history.replaceState( null, null, window.location.href );
+            } 
+        </script>
+
+    </section>
+   
+{% endblock %}

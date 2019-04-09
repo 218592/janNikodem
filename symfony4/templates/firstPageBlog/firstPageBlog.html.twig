@@ -1,0 +1,70 @@
+{% extends 'firstPageBlog/baseBlog.html.twig' %}
+
+{% block stylesheets %}
+<link href="{{ asset('CSS/firstPage/firstPageIndex.css') }}" rel="stylesheet" />
+<link href="{{ asset('CSS/posts/baseBlog.css') }}" rel="stylesheet" />
+<link href="{{ asset('CSS/posts/postPagination.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+
+  <div class="container">
+    <section class="posts">
+      <ul class="post"> 
+        {% for post in posts %}
+          <li>
+            
+            <a class="linkTitle" href="{{ path('posts', {'slug2':nextPage|default(2)-1 , 'slug':post.id} ) }}">
+              <p class="beforeTitle">
+                <i class="far fa-clock"></i> {{ post.date|date("d.m.Y", "Europe/Berlin") }}r.   
+                
+                  {% if post.date.diff( date("now") ).format('%a') == 0  %}
+                    (dzisiaj)
+                  {% elseif post.date.diff( date("now") ).format('%a') == 1 %}
+                    (wczoraj)
+                  {% else %}
+                    ({{post.date.diff( date("now") ).format('%a')}} dni temu)
+                  {% endif %}
+                
+              </p>
+              <h1> {{ post.topic }} </h1>
+            </a>
+
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="pagination">
+      
+      {# w lewo #}
+      {% if nextPage|default(0)-1 == numberOfPages and numberOfPages !=1 %}
+      <div class="pagination-slide">
+        <a href="/blog/page/{{prevPage|default(1)}}"><div class="left-page"><i class="fas fa-angle-double-left"></i></div></a>
+        <div class="number-page">Strona: {{nextPage|default(2)-1}}/{{numberOfPages}}</div>
+        <div class="empty"></div>
+      </div>
+      {% endif %}
+          
+      {# prawo #}
+      {% if  prevPage|default(0) == 0  and numberOfPages !=1 %}
+      <div class="pagination-slide" >
+        <div class="empty"></div>
+        <div class="number-page">Strona: {{nextPage|default(2)-1}}/{{numberOfPages}}</div>
+        <a href="/blog/page/{{nextPage|default(2)}}"><div class="right-page"><i class="fas fa-angle-double-right"></i></div></a>
+      </div>
+      {% endif %}
+
+      {# obie #}
+      {% if  prevPage|default(0) > 0  and nextPage|default(0) < numberOfPages+1 %}
+      <div class="pagination-slide">
+        <a href="/blog/page/{{prevPage|default(1)}}"><div class="left-page"><i class="fas fa-angle-double-left"></i></div></a>
+        <div class="number-page">Strona: {{nextPage|default(2)-1}}/{{numberOfPages}}</div>
+        <a href="/blog/page/{{nextPage|default(2)}}"><div class="right-page"><i class="fas fa-angle-double-right"></i></div></a>
+      </div>
+      {% endif %}
+    </section>
+
+  </div>
+
+{% endblock %}
