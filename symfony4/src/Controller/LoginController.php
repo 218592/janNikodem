@@ -108,7 +108,7 @@ class LoginController extends AbstractController
                         $session->set('token', '42');
 
                         //send email with active link
-                        $body="Wiadomość automatyczna. Proszę na nią nie odpowiadać. Została aktywowana procedura przypominania hasła. Jeśli nie chcesz zmieniać hasła zignoruj wiadomość. Przekierowanie do strony głównej serwisu oznacza, że link wygasł. Należy wygenerować nowy. Przypomnij hasło: "."http://triaz/forgot-pass-account/".$token."";
+                        $body="Wiadomość automatyczna. Proszę na nią nie odpowiadać. Została aktywowana procedura przypominania hasła. Jeśli nie chcesz zmieniać hasła zignoruj wiadomość. Przekierowanie do strony głównej serwisu oznacza, że link wygasł. Należy wygenerować nowy. Przypomnij hasło: "."http://156.17.42.119/forgot-pass-account/".$token."";
 
                         $message = (new \Swift_Message("Zmień swoje hasło - Triaz App"))
                           ->setFrom(['triazapp@gmail.com' => 'Triaz App'])
