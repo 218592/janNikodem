@@ -145,9 +145,9 @@ public class MapsActivity extends AppCompatActivity
         markerOptions.title("Current Position");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
         mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-        changeOffsetCenter(location.getLatitude(),location.getLongitude());
+        changeOffsetCenter(location.getLatitude(), location.getLongitude());
         if (mGoogleApiClient != null) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
@@ -188,6 +188,7 @@ public class MapsActivity extends AppCompatActivity
     }
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+
     private void checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -201,7 +202,7 @@ public class MapsActivity extends AppCompatActivity
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 ActivityCompat.requestPermissions(MapsActivity.this,
                                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                        MY_PERMISSIONS_REQUEST_LOCATION );
+                                        MY_PERMISSIONS_REQUEST_LOCATION);
                             }
                         })
                         .create()
@@ -209,10 +210,11 @@ public class MapsActivity extends AppCompatActivity
             } else {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION );
+                        MY_PERMISSIONS_REQUEST_LOCATION);
             }
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -227,7 +229,8 @@ public class MapsActivity extends AppCompatActivity
                             buildGoogleApiClient();
                         }
                         mGoogleMap.setMyLocationEnabled(true);
-                    }} else {
+                    }
+                } else {
                     Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
                 }
                 return;
@@ -240,10 +243,10 @@ public class MapsActivity extends AppCompatActivity
 
     }
 
-    public void changeOffsetCenter(double latitude,double longitude) {
+    public void changeOffsetCenter(double latitude, double longitude) {
         Point mappoint = mGoogleMap.getProjection().toScreenLocation(new LatLng(latitude,
                 longitude));
-        mappoint.set(mappoint.x, mappoint.y-100);
+        mappoint.set(mappoint.x, mappoint.y - 100);
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(mGoogleMap.getProjection().fromScreenLocation(mappoint)));
     }
 }
