@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190327221148 extends AbstractMigration
+final class Version20190416104638 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,7 @@ final class Version20190327221148 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE app_users ADD roles JSON NOT NULL COMMENT \'(DC2Type:json_array)\'');
+        $this->addSql('ALTER TABLE rani CHANGE nadawanie nadawanie TINYINT(1) DEFAULT NULL, CHANGE aktywna_opaska aktywna_opaska TINYINT(1) DEFAULT NULL, CHANGE kolor kolor VARCHAR(255) DEFAULT NULL, CHANGE w_akcji w_akcji TINYINT(1) DEFAULT NULL, CHANGE data data DATE DEFAULT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +30,6 @@ final class Version20190327221148 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE app_users DROP roles');
+        $this->addSql('ALTER TABLE rani CHANGE nadawanie nadawanie TINYINT(1) DEFAULT \'0\', CHANGE aktywna_opaska aktywna_opaska TINYINT(1) DEFAULT \'0\', CHANGE kolor kolor VARCHAR(32) DEFAULT NULL COLLATE utf8_polish_ci, CHANGE w_akcji w_akcji TINYINT(1) DEFAULT \'1\', CHANGE data data DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
     }
 }
