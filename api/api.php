@@ -35,9 +35,11 @@ function get_pulse() {
     }
 }
 
+$_POST = json_decode(file_get_contents('php://input'), true);
+
 // Very basic auth
-if ($_GET['secret'] == $api_secret) {
-    if(isset($_GET['mode'])) {
+if ($_POST['secret'] == $api_secret) {
+    if(isset($_POST['mode'])) {
         $host='';
         $user='';
         $pass='';
@@ -48,7 +50,7 @@ if ($_GET['secret'] == $api_secret) {
         $conn = mysqli_connect($host, $user, $pass) or exit('Connection failed.');
         mysqli_select_db($conn, $db) or exit('Couldn\'t select database.');
 
-        switch ($_GET['mode']) {
+        switch ($_POST['mode']) {
             // Insert wristband data with given ID
             case 'insert-band':
                 $band_id = get_wristband_id();
@@ -83,7 +85,7 @@ if ($_GET['secret'] == $api_secret) {
         mysqli_close($conn);
     }
     else {
-        exit('Invalid GET parameters.');
+        exit('Invalid POST parameters.');
     }
 }
 else {
