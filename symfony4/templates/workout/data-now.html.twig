@@ -8,6 +8,8 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
     <script>
 
+
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
         $(document).ready(function () {
             var refreshID = setInterval(function () {
                 $.ajax({
@@ -18,9 +20,11 @@
                         var row = "";
                         for (let i = 0; i < data.ajaxResponseContactController[0]['responseFlag'].length; i++)
                         {
-                            var g = data.ajaxResponseContactController[0]["responseFlag"][1]['data'].date;
-                            g=g.toString();
-                            g=g.substring(0, 19);
+                            var g = data.ajaxResponseContactController[0]["responseFlag"][i]['data'].date;
+                            g = g.substring(0,19);
+                            
+                                                   
+                           
 
                             //1
                             row += '<tr><th>' + data.ajaxResponseContactController[0]["responseFlag"][i]['opaskaId']  + '</th><td>'; 
@@ -64,7 +68,7 @@
                        
                     }
                 });
-            }, (1000 * 12)); // Poll every 10 seconds.
+            }, (1000 * 10)); // Poll every 10 seconds.
         });
     </script>
 {% endblock %}
