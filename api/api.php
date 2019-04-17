@@ -117,19 +117,52 @@ function get_resc_id() {
 }
 
 
+// Get latitude
+function get_latitude() {
+    if(!empty($_POST["lat"])) {
+        return $_POST["lat"];
+    }
+    else {
+        exit_json("No latitude.");
+    }
+}
+
+
+// Get longitude
+function get_longitude() {
+    if(!empty($_POST["long"])) {
+        return $_POST["long"];
+    }
+    else {
+        exit_json("No longitude.");
+    }
+}
+
+
+// Get color
+function get_color() {
+    if(!empty($_POST["color"])) {
+        return $_POST["color"];
+    }
+    else {
+        exit_json("No color.");
+    }
+}
+
+
 // Get ID from database
-function get_id_db($injured_table, $conn, $band_id) {
-    valid_init($injured_table, $conn, $band_id);
+function get_id_db($injured_table, $conn, $band_id, $mode) {
+    valid_init($injured_table, $conn, $band_id, $mode);
 
     // Get ID from database
-    $result = exec_query($conn, "select id from $injured_table where opaska_id = $band_id and nadawanie = false and aktywna_opaska = false and w_akcji = true", TRUE);
+    $result = exec_query($conn, "select id from $injured_table where opaska_id = $band_id and w_akcji = true", TRUE);
     $id = $result['id'];
     return $id;
 }
 
 
 // Validate wristband enabling
-function valid_init($injured_table, $conn, $band_id) {
+function valid_init($injured_table, $conn, $band_id, $mode) {
     $result = exec_query($conn, "select count(opaska_id) as count from $injured_table where w_akcji = true and opaska_id = $band_id", TRUE);
     $count_in_action = $result['count'];
 
@@ -143,14 +176,6 @@ function valid_init($injured_table, $conn, $band_id) {
         exit_json("In action entry for wristband with ID $band_id doesn't exist.");
     }
 
-    $result = exec_query($conn, "select count(opaska_id) as count from $injured_table where nadawanie = true and opaska_id = $band_id", TRUE);
-    $count_broadcasting = $result['count'];
-
-    // Check if wristband with given ID is already broadcasting
-    if($count_in_action == 1 && $count_broadcasting > 0) {
-        exit_json("Wristband with ID $band_id is already broadcasting.");
-    }
-
     $result = exec_query($conn, "select count(opaska_id) as count from $injured_table where aktywna_opaska = true and opaska_id = $band_id", TRUE);
     $count_active = $result['count'];
 
@@ -159,7 +184,20 @@ function valid_init($injured_table, $conn, $band_id) {
         exit_json("Wristband with ID $band_id is already active.");
     }
 
-    $result = exec_query($conn, "select count(opaska_id) as count from $injured_table where opaska_id = $band_id and nadawanie = false and aktywna_opaska = false and w_akcji = true", TRUE);
+    $result = exec_query($conn, "select count(opaska_id) as count from $injured_table where nadawanie = true and opaska_id = $band_id", TRUE);
+    $count_broadcasting = $result['count'];
+
+    // Check if wristband with given ID is already broadcasting
+    if($count_in_action == 1 && $count_broadcasting > 0 && $mode == "init") {
+        exit_json("Wristband with ID $band_id is already broadcasting.");
+    }
+
+    // Check if wristband with given ID is broadcasting
+    if($count_in_action == 1 && $count_broadcasting == 0 && $mode == "activate") {
+        exit_json("Wristband with ID $band_id isn't broadcasting.");
+    }
+
+    $result = exec_query($conn, "select count(opaska_id) as count from $injured_table where opaska_id = $band_id and w_akcji = true", TRUE);
     $valid = $result['count'];
 
     // Check if ready to enable
@@ -178,9 +216,6 @@ function valid_update($injured_table, $conn, $id) {
     if($valid != 1) {
         exit_json("Entry with ID $id unavailable for updating.");
     }
-    else {
-        echo_json();
-    }
 }
 
 
@@ -192,9 +227,6 @@ function valid_login($resc_table, $conn, $resc_id) {
     // Check if ready to login
     if($valid != 1) {
         exit_json("No valid entry for rescuer ID $resc_id.");
-    }
-    else {
-        echo_json();
     }
 }
 
@@ -221,16 +253,15 @@ if($_POST["secret"] == $api_secret) {
             // Enable wristband with given ID
             case "enable-band":
                 $band_id = get_wristband_id();
-                $pulse = get_pulse();
 
-                $id = get_id_db($injured_table, $conn, $band_id);
+                $id = get_id_db($injured_table, $conn, $band_id, "init");
                 
                 $out = array(
                     "id" => $id
                 );
 
                 // Enable wristband
-                exec_query($conn, "update $injured_table set nadawanie = true, tetno = $pulse where id = $id", NULL, $out);
+                exec_query($conn, "update $injured_table set nadawanie = true where id = $id", NULL, $out);
                 break;
 
             // Update wristband data with given ID
@@ -248,6 +279,8 @@ if($_POST["secret"] == $api_secret) {
             case "disable-band":
                 $id = get_id();
 
+                valid_update($injured_table, $conn, $id);
+
                 // Disable wristband
                 exec_query($conn, "update $injured_table set nadawanie = false, aktywna_opaska = false where id = $id");
                 break;
@@ -258,6 +291,22 @@ if($_POST["secret"] == $api_secret) {
 
                 // Validate
                 valid_login($resc_table, $conn, $resc_id);
+                echo_json();
+                break;
+
+            // Activate wristband with given ID
+            case "activate-band":
+                $band_id = get_wristband_id();
+                $resc_id = get_resc_id();
+                $lat = get_latitude();
+                $long = get_longitude();
+                $color = get_color();
+
+                $id = get_id_db($injured_table, $conn, $band_id, "activate");
+
+                // Activate
+                exec_query($conn, "update $injured_table set ratownik_id = $resc_id, szerokosc_geo = $lat, dlugosc_geo = $long,
+                            nadawanie = false, aktywna_opaska = true, kolor = '$color' where id = $id");
                 break;
 
             default:
