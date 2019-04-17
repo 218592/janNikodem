@@ -19,12 +19,23 @@ class UserProfilController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
         $username = $user->getUsername();
+        
+        $queryStatus = "zajety";
+
+        $query = $this->getDoctrine()
+            ->getRepository(User::class)->createQueryBuilder('r')
+            ->andWhere('r.status = :qS')
+            ->setParameter('qS', $queryStatus)
+            ->getQuery();
+
+        $kams = $query->getArrayResult();
 
         return $this->render('workout/workoutProfil.html.twig', array(
             'namePage' => 'Triaz App - Profil',
             'nameWorkout' => $username,
             'nav' => '1',
             'footer' => 1,
+            'kams' => $kams,
         ));
     }
 
@@ -151,8 +162,8 @@ class UserProfilController extends AbstractController
             //ustaw siebie jako wolny od KAM
             $em = $this->getDoctrine()->getManager();
             $u = $em->getRepository(User::class)->find($userId);
-            $u->setStatus(NULL);
-            $u->setAkcjaId(NuLL);
+            $u->setStatus(null);
+            $u->setAkcjaId(null);
             $em->persist($u);
             $em->flush();
 
