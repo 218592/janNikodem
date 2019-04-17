@@ -123,6 +123,19 @@ function valid_init($injured_table, $conn, $band_id) {
 }
 
 
+// Validate update request
+function valid_update($injured_table, $conn, $id) {
+    $result = exec_query($conn, "select count(id) as count from $injured_table where id = $id and nadawanie = true and aktywna_opaska = false and w_akcji = true", TRUE);
+    $valid = $result['count'];
+    //echo "\nValid: ".$valid;
+
+    // Check if ready to update
+    if($valid != 1) {
+        exit("No valid entry with ID $id for updating.");
+    }
+}
+
+
 // Receive json
 $_POST = json_decode(file_get_contents("php://input"), true);
 
@@ -161,6 +174,8 @@ if($_POST["secret"] == $api_secret) {
                 $id = get_id();
                 $pulse = get_pulse();
 
+                valid_update($injured_table, $conn, $id);
+
                 // Update data
                 exec_query($conn, "update $injured_table set tetno = $pulse where id = $id");
                 break;
@@ -170,7 +185,7 @@ if($_POST["secret"] == $api_secret) {
                 $id = get_id();
 
                 // Deactivate wristband
-                exec_query($conn, "delete from $injured_table where id = $id");
+                exec_query($conn, "update $injured_table set nadawanie = false, aktywna_opaska = false where id = $id");
                 break;
 
             default:
