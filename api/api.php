@@ -65,6 +65,19 @@ function get_id() {
     }
 }
 
+// Get rescuer ID
+function get_resc_id() {
+    if(!ctype_digit($_POST["resc_id"])) {
+        exit("Rescuer ID must be integer.");
+    }
+
+    if(!empty($_POST["resc_id"])) {
+        return $_POST["resc_id"];
+    }
+    else {
+        exit("No rescuer ID.");
+    }
+}
 
 // Get ID from database
 function get_id_db($injured_table, $conn, $band_id) {
@@ -136,6 +149,22 @@ function valid_update($injured_table, $conn, $id) {
 }
 
 
+// Validate login request
+function valid_login($resc_table, $conn, $resc_id) {
+    $result = exec_query($conn, "select count(ratownik_id) as count from $resc_table where ratownik_id = $resc_id", TRUE);
+    $valid = $result['count'];
+    //echo "\nValid: ".$valid;
+
+    // Check if ready to login
+    if($valid != 1) {
+        exit("No valid entry for rescuer ID $resc_id.");
+    }
+    else {
+        echo "Login successful.";
+    }
+}
+
+
 // Receive json
 $_POST = json_decode(file_get_contents("php://input"), true);
 
@@ -143,11 +172,12 @@ $_POST = json_decode(file_get_contents("php://input"), true);
 // MAIN
 if($_POST["secret"] == $api_secret) {
     if(isset($_POST["mode"])) {
-        $host="";
-        $user="";
-        $pass="";
-        $db="myDB";
-        $injured_table="rani";
+        $host = "";
+        $user = "";
+        $pass = "";
+        $db = "myDB";
+        $injured_table = "rani";
+        $resc_table = "ratownicy";
 
         // Connect to DB
         $conn = mysqli_connect($host, $user, $pass) or exit("Connection failed.");
@@ -186,6 +216,14 @@ if($_POST["secret"] == $api_secret) {
 
                 // Deactivate wristband
                 exec_query($conn, "update $injured_table set nadawanie = false, aktywna_opaska = false where id = $id");
+                break;
+
+            // Validate login request
+            case "verify-login":
+                $resc_id = get_resc_id();
+
+                // Validate
+                valid_login($resc_table, $conn, $resc_id);
                 break;
 
             default:
