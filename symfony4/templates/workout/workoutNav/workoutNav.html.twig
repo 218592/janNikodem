@@ -2,36 +2,38 @@
     <div class="wrapper">
         <ul>
             <a class="fat-nav-link" href="/user/profil/data-now">
-                <li> Aktualne pomiary ranych </li>
+                <li> Aktualne pomiary dotyczące ranych w akcji</li>
             </a>
 
-            <a class="fat-nav-link" href="/user/profil/data-history">
+            {# <a class="fat-nav-link" href="/user/profil/data-history">
                 <li> Historyczne pomiary ranych </li>
-            </a>
+            </a> #}
 
-            <a class="fat-nav-link" href="/user/profil/data-history">
+            <br>
+            <a class="fat-nav-link" href="/user/profil/add-kam">
                 <li> Wprowadź KAM</li>
             </a>
 
-            <a class="fat-nav-link" href="/user/profil/data-history">
+            <a class="fat-nav-link" href="/user/profil/remove-kam">
                 <li> Zakończ akcje KAM</li>
             </a>
 
+            <br>
             <a class="fat-nav-link" href="/user/profil/data-history">
-                <li> Jednostki ratownicze</li>
+                <li> Dodaj ratownika do akcji </li>
             </a>
 
             <a class="fat-nav-link" href="/user/profil/data-history">
-                <li> Zarządzaj jednostakami ratowniczymi</li>
+                <li> Wyświetl ratowników biorących udział w akcji </li>
             </a>
 
             <br>
             <a class="fat-nav-link" href="/user/profil">
-                 <li><i class="far fa-user"></i> Profil: {{ app.user.username }}</li>
+                 <li><i class="far fa-user"></i> Użytkownik: {{ app.user.username }}</li>
             </a>
 
             <a class="fat-nav-link" href="/logout">
-                <li><i class="fas fa-sign-out-alt"></i> Sign Out</li>
+                <li><i class="fas fa-sign-out-alt"></i> Wyloguj się</li>
             </a>
         </ul>
      </div>  

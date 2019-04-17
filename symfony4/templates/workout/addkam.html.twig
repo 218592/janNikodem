@@ -1,0 +1,27 @@
+{% extends 'workout/baseWorkout.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('CSS/data-now/data-now.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+
+    <main>
+
+        {% if formIsOk|default(0) == 1 %}
+            <p>Dodano siebie jako KAM</p>
+        {% endif %}
+
+        <h1>
+            Dodaj siebie jako KAM</h1>
+
+        <form action="/user/profil/add-kam" method="POST">
+            <br>Numer akcji ratowniczej:
+            <input name="akcja_id" type="number" value="1">
+            <br><br>
+            <input type="submit" value="Zgłoś się jako KAM">
+        </form>
+
+    </main>
+
+{% endblock %}
