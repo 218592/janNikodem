@@ -117,7 +117,7 @@ class UserProfilController extends AbstractController
             $u->setAkcjaId($akcja_id);
             $em->persist($u);
 
-            //wstaw ratowników
+            //wstaw KAM do tabeli ratowniko
             $ratownikWAkcji = new RatownicyWAkcji();
             $ratownikWAkcji->setRatownikId($userId);
             $ratownikWAkcji->setCzyKam("KAM");
@@ -173,7 +173,7 @@ class UserProfilController extends AbstractController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($akcjaId)) {
 
-            //usun ratowników z akcji
+            //usun ratowników z akcji albo zmien ich stan
             $em = $this->getDoctrine()->getManager();
             $query = $em->createQuery(
                 'DELETE FROM App\Entity\RatownicyWAkcji r
