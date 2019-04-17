@@ -1,7 +1,39 @@
 <?php
+header("Content-Type: application/json");
 
 // Very basic auth, set to something secure
 $api_secret = "";
+
+
+// Exit with json
+function exit_json($out) {
+    $arr = array(
+        "status" => "error",
+        "error" => $out
+    );
+    exit(json_encode($arr));
+}
+
+
+// Echo with json
+function echo_json($out = NULL) {
+    if($out != NULL) {
+        $arr = array(
+            array(
+                "status" => "success"
+            ),
+            array(
+                "status" => "data",
+                "data" => $out
+            ));
+    }
+    else {
+        $arr = array(
+            "status" => "success"
+        );
+    }
+    echo json_encode($arr);
+}
 
 
 // Execute MySQL query
@@ -9,7 +41,7 @@ function exec_query($conn, $query, $ret = NULL, $out = NULL) {
     $q = mysqli_query($conn, $query);
 
     if(!$q) {
-        exit("MySQL query failed: ".mysqli_error($conn));
+        exit_json("MySQL query failed: ".mysqli_error($conn));
     }
 
     if(isset($ret)) {
@@ -17,7 +49,10 @@ function exec_query($conn, $query, $ret = NULL, $out = NULL) {
     }
 
     if(isset($out)) {
-        echo json_encode($out);
+        echo_json($out);
+    }
+    else {
+        echo_json();
     }
 }
 
@@ -25,14 +60,14 @@ function exec_query($conn, $query, $ret = NULL, $out = NULL) {
 // Get wristband ID
 function get_wristband_id() {
     if(!ctype_digit($_POST["band_id"])) {
-        exit("Wristband ID must be integer.");
+        exit_json("Wristband ID must be integer.");
     }
     
     if(!empty($_POST["band_id"])) {
         return $_POST["band_id"]; 
     }
     else {
-        exit("No wristband ID.");
+        exit_json("No wristband ID.");
     }
 }
 
@@ -40,44 +75,47 @@ function get_wristband_id() {
 // Get pulse
 function get_pulse() {
     if(!ctype_digit($_POST["pulse"])) {
-        exit("Pulse must be integer.");
+        exit_json("Pulse must be integer.");
     }
 
     if(!empty($_POST["pulse"])) {
         return $_POST["pulse"];
     }
     else {
-        exit("No pulse.");
+        exit_json("No pulse.");
     }
 }
+
 
 // Get ID
 function get_id() {
     if(!ctype_digit($_POST["id"])) {
-        exit("ID must be integer.");
+        exit_json("ID must be integer.");
     }
 
     if(!empty($_POST["id"])) {
         return $_POST["id"];
     }
     else {
-        exit("No ID.");
+        exit_json("No ID.");
     }
 }
+
 
 // Get rescuer ID
 function get_resc_id() {
     if(!ctype_digit($_POST["resc_id"])) {
-        exit("Rescuer ID must be integer.");
+        exit_json("Rescuer ID must be integer.");
     }
 
     if(!empty($_POST["resc_id"])) {
         return $_POST["resc_id"];
     }
     else {
-        exit("No rescuer ID.");
+        exit_json("No rescuer ID.");
     }
 }
+
 
 // Get ID from database
 function get_id_db($injured_table, $conn, $band_id) {
@@ -86,65 +124,62 @@ function get_id_db($injured_table, $conn, $band_id) {
     // Get ID from database
     $result = exec_query($conn, "select id from $injured_table where opaska_id = $band_id and nadawanie = false and aktywna_opaska = false and w_akcji = true", TRUE);
     $id = $result['id'];
-    //echo "\nID: ".$id;
     return $id;
 }
 
 
-// Validate wristband activation
+// Validate wristband enabling
 function valid_init($injured_table, $conn, $band_id) {
     $result = exec_query($conn, "select count(opaska_id) as count from $injured_table where w_akcji = true and opaska_id = $band_id", TRUE);
     $count_in_action = $result['count'];
-    //echo "In action: ".$count_in_action;
 
     // Check for duplicate in action wristband entries
     if($count_in_action > 1) {
-        exit("Duplicate in action entries for wristband with ID $band_id.");
+        exit_json("Duplicate in action entries for wristband with ID $band_id.");
     }
 
     // Check if entry exist for given wristband ID
     if($count_in_action == 0) {
-        exit("In action entry for wristband with ID $band_id doesn't exist.");
+        exit_json("In action entry for wristband with ID $band_id doesn't exist.");
     }
 
     $result = exec_query($conn, "select count(opaska_id) as count from $injured_table where nadawanie = true and opaska_id = $band_id", TRUE);
     $count_broadcasting = $result['count'];
-    //echo "\nBroadcasting: ".$count_broadcasting;
 
     // Check if wristband with given ID is already broadcasting
     if($count_in_action == 1 && $count_broadcasting > 0) {
-        exit("Wristband with ID $band_id is already broadcasting.");
+        exit_json("Wristband with ID $band_id is already broadcasting.");
     }
 
     $result = exec_query($conn, "select count(opaska_id) as count from $injured_table where aktywna_opaska = true and opaska_id = $band_id", TRUE);
     $count_active = $result['count'];
-    //echo "\nActive: ".$count_active;
 
     // Check if wristband with given ID is already active
     if($count_active > 0) {
-        exit("Wristband with ID $band_id is already active.");
+        exit_json("Wristband with ID $band_id is already active.");
     }
 
     $result = exec_query($conn, "select count(opaska_id) as count from $injured_table where opaska_id = $band_id and nadawanie = false and aktywna_opaska = false and w_akcji = true", TRUE);
     $valid = $result['count'];
-    //echo "\nValid: ".$valid;
 
-    // Check if ready to activate
+    // Check if ready to enable
     if($valid != 1) {
-        exit("No valid entry for wristband with ID $band_id.");
+        exit_json("No valid entry for wristband with ID $band_id.");
     }
 }
 
 
 // Validate update request
 function valid_update($injured_table, $conn, $id) {
-    $result = exec_query($conn, "select count(id) as count from $injured_table where id = $id and nadawanie = true and aktywna_opaska = false and w_akcji = true", TRUE);
+    $result = exec_query($conn, "select count(id) as count from $injured_table where id = $id and w_akcji = true", TRUE);
     $valid = $result['count'];
-    //echo "\nValid: ".$valid;
 
     // Check if ready to update
     if($valid != 1) {
-        exit("No valid entry with ID $id for updating.");
+        exit_json("Entry with ID $id unavailable for updating.");
+    }
+    else {
+        echo_json();
     }
 }
 
@@ -153,14 +188,13 @@ function valid_update($injured_table, $conn, $id) {
 function valid_login($resc_table, $conn, $resc_id) {
     $result = exec_query($conn, "select count(ratownik_id) as count from $resc_table where ratownik_id = $resc_id", TRUE);
     $valid = $result['count'];
-    //echo "\nValid: ".$valid;
 
     // Check if ready to login
     if($valid != 1) {
-        exit("No valid entry for rescuer ID $resc_id.");
+        exit_json("No valid entry for rescuer ID $resc_id.");
     }
     else {
-        echo "Login successful.";
+        echo_json();
     }
 }
 
@@ -180,12 +214,12 @@ if($_POST["secret"] == $api_secret) {
         $resc_table = "ratownicy";
 
         // Connect to DB
-        $conn = mysqli_connect($host, $user, $pass) or exit("Connection failed.");
-        mysqli_select_db($conn, $db) or exit("Couldn't select database.");
+        $conn = mysqli_connect($host, $user, $pass) or exit_json("Connection failed.");
+        mysqli_select_db($conn, $db) or exit_json("Couldn't select database.");
 
         switch($_POST["mode"]) {
-            // Activate wristband with given ID
-            case "activate-band":
+            // Enable wristband with given ID
+            case "enable-band":
                 $band_id = get_wristband_id();
                 $pulse = get_pulse();
 
@@ -195,7 +229,7 @@ if($_POST["secret"] == $api_secret) {
                     "id" => $id
                 );
 
-                // Activate wristband
+                // Enable wristband
                 exec_query($conn, "update $injured_table set nadawanie = true, tetno = $pulse where id = $id", NULL, $out);
                 break;
 
@@ -210,11 +244,11 @@ if($_POST["secret"] == $api_secret) {
                 exec_query($conn, "update $injured_table set tetno = $pulse where id = $id");
                 break;
 
-            // Deactivate wristband with given ID
-            case "deactivate-band":
+            // Disable wristband with given ID
+            case "disable-band":
                 $id = get_id();
 
-                // Deactivate wristband
+                // Disable wristband
                 exec_query($conn, "update $injured_table set nadawanie = false, aktywna_opaska = false where id = $id");
                 break;
 
@@ -227,16 +261,16 @@ if($_POST["secret"] == $api_secret) {
                 break;
 
             default:
-            exit("Invalid mode.");
+            exit_json("Invalid mode.");
             break;
         }
 
         mysqli_close($conn);
     }
     else {
-        exit("Invalid POST parameters.");
+        exit_json("Invalid POST parameters.");
     }
 }
 else {
-    exit("Permission denied.");
+    exit_json("Permission denied.");
 }
