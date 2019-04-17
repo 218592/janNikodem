@@ -7,19 +7,25 @@
 {% block body %}
 
     <main>
-
-        {% if formIsOk|default(0) == 1 %}
-            <p>Zakończono prowadzoną akcję jako KAM</p>
-        {% endif %}
-
         <h1>
             Zakończ prowadzoną akcję jako KAM</h1>
+        {% if end|default(0) == 1 %}
+            {% if formIsOk|default(0) == 1 %}
+                <p>Zakończono prowadzoną akcję jako KAM</p>
+            {% else %}
+                <p>Brak prowadzonych akcji jako KAM</p>
 
-        <form action="/user/profil/remove-kam" method="POST">
-            <br>Czy na pewno zakończyć akcję KAM?
-            <br><br>
-            <input type="submit" value="Usuń akcję KAM">
-        </form>
+            {% endif %}
+        {% else %}
+            <form action="/user/profil/remove-kam" method="POST">
+                <br>Czy na pewno zakończyć akcję KAM?
+                <br><br>
+                <input type="submit" value="Zakończ akcję KAM">
+            </form>
+
+
+        {% endif %}
+
 
     </main>
 

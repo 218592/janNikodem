@@ -19,8 +19,8 @@ class UserProfilController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
         $username = $user->getUsername();
-        
-        $queryStatus = "zajety";
+
+        $queryStatus = "KAM";
 
         $query = $this->getDoctrine()
             ->getRepository(User::class)->createQueryBuilder('r')
@@ -52,7 +52,7 @@ class UserProfilController extends AbstractController
         $akcja = 1;
         $query = $this->getDoctrine()
             ->getRepository(Rani::class)->createQueryBuilder('r')
-            ->andWhere('r.akcjaId = :akcja')
+            ->andWhere('r.akcjaId = :akcja and r.aktywnaOpaska = 1 and r.wAkcji = 1')
             ->setParameter('akcja', $akcja)
             ->getQuery();
 
@@ -78,7 +78,7 @@ class UserProfilController extends AbstractController
         $akcja = 1;
         $query = $this->getDoctrine()
             ->getRepository(Rani::class)->createQueryBuilder('r')
-            ->andWhere('r.akcjaId = :akcja')
+            ->andWhere('r.akcjaId = :akcja and r.aktywnaOpaska = 1 and r.wAkcji = 1')
             ->setParameter('akcja', $akcja)
             ->getQuery();
 
@@ -102,29 +102,49 @@ class UserProfilController extends AbstractController
 
         $username = $user->getUsername();
         $userId = $user->getId();
+        $userStatus = $user->getStatus();
 
         $formIsOk = 0;
+        $start = 0;
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['akcja_id'])) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['akcja_id']) && empty($userStatus)) {
             $akcja_id = $_POST['akcja_id'];
-
+            $ile_opasek = $_POST['ile_opasek'];
             //wstaw do tabeli user
             $em = $this->getDoctrine()->getManager();
             $u = $em->getRepository(User::class)->find($userId);
-            $u->setStatus("zajety");
+            $u->setStatus("KAM");
             $u->setAkcjaId($akcja_id);
             $em->persist($u);
 
+            //wstaw ratowników
             $ratownikWAkcji = new RatownicyWAkcji();
             $ratownikWAkcji->setRatownikId($userId);
             $ratownikWAkcji->setCzyKam("KAM");
             $ratownikWAkcji->setAkcjaId($akcja_id);
             $em->persist($ratownikWAkcji);
+
+            //wstaw opaski
+            for ($i = 1; $i <= $ile_opasek; $i++) {
+                $Opaska = new Rani();
+                $Opaska->setOpaskaId($i);
+                $Opaska->setAkcjaId($akcja_id);
+                $Opaska->setData(new \DateTime(date("Y-m-d H:i:s")));
+
+                $em->persist($Opaska);
+            }
+
             $em->flush();
 
             $_POST = array();
 
             $formIsOk = 1;
+
+            $userStatus = 1;
+        }
+
+        if (empty($userStatus)) {
+            $start = 1;
         }
 
         return $this->render('workout/addkam.html.twig', array(
@@ -133,6 +153,7 @@ class UserProfilController extends AbstractController
             'nav' => '1',
             'footer' => 1,
             'formIsOk' => $formIsOk,
+            'start' => $start,
         ));
     }
 
@@ -148,8 +169,9 @@ class UserProfilController extends AbstractController
         $userId = $user->getId();
 
         $formIsOk = 0;
+        $end = 0;
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($akcjaId)) {
 
             //usun ratowników z akcji
             $em = $this->getDoctrine()->getManager();
@@ -165,10 +187,24 @@ class UserProfilController extends AbstractController
             $u->setStatus(null);
             $u->setAkcjaId(null);
             $em->persist($u);
+
+            //wylącz opaski
+            $query = $em->createQuery(
+                'UPDATE App\Entity\Rani r SET r.wAkcji=0 WHERE r.akcjaId = :idA'
+            )->setParameter('idA', $akcjaId);
+            $result = $query->getResult();
+
             $em->flush();
+
+            $_POST = array();
 
             $formIsOk = 1;
 
+            $akcjaId = NULL;
+        }
+
+        if (empty($akcjaId)) {
+            $end = 1;
         }
 
         return $this->render('workout/remove-kam.html.twig', array(
@@ -177,6 +213,7 @@ class UserProfilController extends AbstractController
             'nav' => '1',
             'footer' => 1,
             'formIsOk' => $formIsOk,
+            'end' => $end,
         ));
 
     }

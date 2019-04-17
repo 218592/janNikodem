@@ -8,19 +8,29 @@
 
     <main>
 
-        {% if formIsOk|default(0) == 1 %}
-            <p>Dodano siebie jako KAM</p>
-        {% endif %}
 
         <h1>
             Dodaj siebie jako KAM</h1>
+        {% if start|default(0) == 1 %}
+            <form action="/user/profil/add-kam" method="POST">
+                <br>Numer akcji ratowniczej:
+                <input name="akcja_id" type="number" value="42">
+                <br><br>Ile opasek:&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input name="ile_opasek" type="number" value="3">
+                <br><br>
+                <input type="submit" value="Zgłoś się jako KAM">
+            </form>
 
-        <form action="/user/profil/add-kam" method="POST">
-            <br>Numer akcji ratowniczej:
-            <input name="akcja_id" type="number" value="1">
-            <br><br>
-            <input type="submit" value="Zgłoś się jako KAM">
-        </form>
+        {% else %}
+            {% if formIsOk|default(0) == 1 %}
+                <p>Dodano siebie jako KAM</p>
+            {% else %}
+                <p>Prowadzisz już akcję jako KAM</p>
+            {% endif %}
+
+
+        {% endif %}
+
 
     </main>
 
