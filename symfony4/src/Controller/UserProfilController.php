@@ -326,4 +326,114 @@ class UserProfilController extends AbstractController
 
     }
 
+    /**
+     * @Route("/user/profil/show-zrm-in-action", name="show-zrm-in-action")
+     */
+    public function showZrmInAction()
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $user = $this->getUser();
+        $akcjaId = $user->getAkcjaId();
+        $username = $user->getUsername();
+        $userId = $user->getId();
+
+        //zakladamy ze prowadzi akcje
+        $end = 0;
+
+        $freeUsers = null;
+        if (empty($akcjaId)) {
+            //brak prowadzonych akcji
+            $end = 1;
+        } else {
+            //jesli prowadzi
+            $query = $this->getDoctrine()
+                ->getRepository(RatownicyWAkcji::class)->createQueryBuilder('r')
+                ->andWhere('r.akcja_id = :akcja and r.wAkcji = 1')
+                ->setParameter('akcja', $akcjaId)
+                ->getQuery();
+            $freeUsers = $query->getArrayResult();
+
+            if (empty($freeUsers)) {
+                $nofree = 1;
+            }
+
+        }
+
+        return $this->render('workout/show-zrm-in-action.html.twig', array(
+            'namePage' => 'Triaz App - Dodaj zespół do akcji',
+            'nameWorkout' => $username,
+            'nav' => '1',
+            'footer' => 1,
+            'end' => $end,
+            'freeUsers' => $freeUsers,
+        ));
+
+    }
+
+    /**
+     * @Route("/user/profil/show-zrm-in-action/{slug}/{slug2}", name="remove-zrm-in-action-one")
+     */
+    public function removeZrmInActionOne($slug, $slug2)
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $user = $this->getUser();
+        $akcjaId = $user->getAkcjaId();
+        $username = $user->getUsername();
+        $userId = $user->getId();
+
+        $end = 0;
+        $usunietoRatownika = 0;
+
+
+        //zmien Status Ratownik w tabeli User
+        $em = $this->getDoctrine()->getManager();
+
+        $u = $em->getRepository(User::class)->find($slug);
+        $uAkcjaId = $u->getAkcjaId();
+
+        if (!empty($uAkcjaId)) {
+            $u->setStatus(null);
+            $u->setAkcjaId(null);
+            $em->persist($u);
+
+            //usun ratownika z tabeli RatownicyWAkcji
+            $newRatownik = $em->getRepository(RatownicyWAkcji::class)->find($slug2);
+            $em->remove($newRatownik);
+            $em->flush();
+            $usunietoRatownika = 1;
+
+        }
+
+        $freeUsers = null;
+        if (empty($akcjaId)) {
+            //brak prowadzonych akcji
+            $end = 1;
+        } else {
+            //jesli prowadzi
+            $query = $this->getDoctrine()
+                ->getRepository(RatownicyWAkcji::class)->createQueryBuilder('r')
+                ->andWhere('r.akcja_id = :akcja and r.wAkcji = 1')
+                ->setParameter('akcja', $akcjaId)
+                ->getQuery();
+            $freeUsers = $query->getArrayResult();
+
+            if (empty($freeUsers)) {
+                $nofree = 1;
+            }
+        }
+
+        
+
+        return $this->render('workout/show-zrm-in-action.html.twig', array(
+            'namePage' => 'Triaz App - Dodaj zespół do akcji',
+            'nameWorkout' => $username,
+            'nav' => '1',
+            'footer' => 1,
+            'end' => $end,
+            'freeUsers' => $freeUsers,
+            'usunietoRatownika' => $usunietoRatownika,
+        ));
+
+    }
+
 }
