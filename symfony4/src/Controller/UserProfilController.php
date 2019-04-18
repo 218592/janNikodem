@@ -173,7 +173,7 @@ class UserProfilController extends AbstractController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($akcjaId)) {
 
-            //wylacz ratownikow bioracych udzial w akcji 
+            //wylacz ratownikow bioracych udzial w akcji
             $em = $this->getDoctrine()->getManager();
             $query = $em->createQuery(
                 'UPDATE App\Entity\RatownicyWAkcji r
@@ -181,12 +181,12 @@ class UserProfilController extends AbstractController
             )->setParameter('idA', $akcjaId);
             $result = $query->getResult();
 
-            //ustaw siebie jako wolny od KAM
-            $em = $this->getDoctrine()->getManager();
-            $u = $em->getRepository(User::class)->find($userId);
-            $u->setStatus(null);
-            $u->setAkcjaId(null);
-            $em->persist($u);
+            //ustaw siebie i ratowników wolnych od akcji
+            $query = $em->createQuery(
+                'UPDATE App\Entity\User u
+                SET u.akcja_id=NULL, u.status=NULL WHERE u.akcja_id = :idA'
+            )->setParameter('idA', $akcjaId);
+            $result = $query->getResult();
 
             //wylącz opaski
             $query = $em->createQuery(
@@ -200,7 +200,7 @@ class UserProfilController extends AbstractController
 
             $formIsOk = 1;
 
-            $akcjaId = NULL;
+            $akcjaId = null;
         }
 
         if (empty($akcjaId)) {
@@ -214,6 +214,114 @@ class UserProfilController extends AbstractController
             'footer' => 1,
             'formIsOk' => $formIsOk,
             'end' => $end,
+        ));
+
+    }
+
+    /**
+     * @Route("/user/profil/add-zrm-to-action", name="add-zrm-to-action")
+     */
+    public function addZrmToAction()
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $user = $this->getUser();
+        $akcjaId = $user->getAkcjaId();
+        $username = $user->getUsername();
+        $userId = $user->getId();
+
+        //zakladamy ze prowadzi akcje
+        $end = 0;
+        // zakladamy ze mamy wolnych ratowniko
+        $nofree = 0;
+
+        $freeUsers = null;
+        if (empty($akcjaId)) {
+            //brak prowadzonych akcji
+            $end = 1;
+        } else {
+            //jesli prowadzi
+            $query = $this->getDoctrine()
+                ->getRepository(User::class)->createQueryBuilder('u')
+                ->andWhere('u.akcja_id IS NULL')
+                ->getQuery();
+            $freeUsers = $query->getArrayResult();
+
+            if (empty($freeUsers)) {
+                $nofree = 1;
+            }
+
+        }
+
+        return $this->render('workout/add-zrm-to-action.html.twig', array(
+            'namePage' => 'Triaz App - Dodaj zespół do akcji',
+            'nameWorkout' => $username,
+            'nav' => '1',
+            'footer' => 1,
+            'end' => $end,
+            'freeUsers' => $freeUsers,
+            'nofree' => $nofree,
+
+        ));
+
+    }
+
+    /**
+     * @Route("/user/profil/add-zrm-to-action/{slug}", name="add-zrm-to-action-one")
+     */
+    public function addZrmToActionOne($slug)
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $user = $this->getUser();
+        $akcjaId = $user->getAkcjaId();
+        $username = $user->getUsername();
+        $userId = $user->getId();
+
+        $end = 0;
+
+        //zmien Status Ratownik w tabeli User
+        $em = $this->getDoctrine()->getManager();
+
+        $u = $em->getRepository(User::class)->find($slug);
+        $uAkcjaId = $u->getAkcjaId();
+
+        if (empty($uAkcjaId)) {
+            $u->setStatus("Ratownik");
+            $u->setAkcjaId($akcjaId);
+            $em->persist($u);
+
+            //dodaj ratownika do tabeli RatownicyWAkcji
+            $newRatownik = new RatownicyWAkcji();
+            $newRatownik->setRatownikId($slug);
+            $newRatownik->setCzyKam("Ratownik");
+            $newRatownik->setAkcjaId($akcjaId);
+            $em->persist($newRatownik);
+
+            $em->flush();
+        }
+
+        //pobierz aktualnych wolnych ratowników
+        $query = $this->getDoctrine()
+            ->getRepository(User::class)->createQueryBuilder('u')
+            ->andWhere('u.akcja_id IS NULL')
+            ->getQuery();
+        $freeUsers = $query->getArrayResult();
+
+        $nofree = 0;
+        if (empty($freeUsers)) {
+            $nofree = 1;
+        }
+
+        $dodanoRatownika = 1;
+
+        return $this->render('workout/add-zrm-to-action.html.twig', array(
+            'namePage' => 'Triaz App - Dodaj zespół do akcji',
+            'nameWorkout' => $username,
+            'nav' => '1',
+            'footer' => 1,
+            'end' => $end,
+            'freeUsers' => $freeUsers,
+            'dodanoRatownika' => $dodanoRatownika,
+            'nofree' => $nofree,
         ));
 
     }
