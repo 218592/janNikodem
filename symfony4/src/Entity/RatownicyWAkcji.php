@@ -31,6 +31,11 @@ class RatownicyWAkcji
      */
     private $akcja_id;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true, options={"default"="1"})
+     */
+    private $wAkcji = '1';
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +73,18 @@ class RatownicyWAkcji
     public function setAkcjaId(?int $akcja_id): self
     {
         $this->akcja_id = $akcja_id;
+
+        return $this;
+    }
+
+    public function getWAkcji()
+    {
+        return $this->wAkcji;
+    }
+
+    public function setWAkcji($wAkcji): self
+    {
+        $this->wAkcji = $wAkcji;
 
         return $this;
     }

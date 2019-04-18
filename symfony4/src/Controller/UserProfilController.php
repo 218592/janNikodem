@@ -173,11 +173,11 @@ class UserProfilController extends AbstractController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($akcjaId)) {
 
-            //usun ratowników z akcji albo zmien ich stan
+            //wylacz ratownikow bioracych udzial w akcji 
             $em = $this->getDoctrine()->getManager();
             $query = $em->createQuery(
-                'DELETE FROM App\Entity\RatownicyWAkcji r
-                WHERE r.akcja_id = :idA'
+                'UPDATE App\Entity\RatownicyWAkcji r
+                SET r.wAkcji=0 WHERE r.akcja_id = :idA'
             )->setParameter('idA', $akcjaId);
             $result = $query->getResult();
 
