@@ -249,4 +249,11 @@ public class MapsActivity extends AppCompatActivity
         mappoint.set(mappoint.x, mappoint.y - 100);
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(mGoogleMap.getProjection().fromScreenLocation(mappoint)));
     }
+
+    @Override
+    public void onBackPressed() {
+        // do something on back.
+        return;
+    }
+
 }
