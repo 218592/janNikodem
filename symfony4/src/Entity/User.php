@@ -48,6 +48,16 @@ class User implements UserInterface, \Serializable
      */
     private $activeTokenMail;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $akcja_id;
+
     // public function __construct()
     // {
     //     $this->isActive = true;
@@ -169,6 +179,30 @@ class User implements UserInterface, \Serializable
     public function setActiveTokenMail(string $activeTokenMail): self
     {
         $this->activeTokenMail = $activeTokenMail;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getAkcjaId(): ?int
+    {
+        return $this->akcja_id;
+    }
+
+    public function setAkcjaId(?int $akcja_id): self
+    {
+        $this->akcja_id = $akcja_id;
 
         return $this;
     }

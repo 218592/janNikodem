@@ -94,7 +94,7 @@ class RegisterController extends AbstractController
                         $user->setPassword($encoded);
                         $user->setUsername($username);
                         $user->setEmail($email);
-                        $user->setIsActive('0');
+                        $user->setIsActive(false);
                         $user->setActiveTokenMail($token);
 
                         //set to database
@@ -108,7 +108,7 @@ class RegisterController extends AbstractController
                         $session->set('username', $username);
 
                         //send email with active link
-                        $body="Wiadomość automatyczna. Proszę na nią nie odpowiadać. Aktywuj konto: "."http://triaz/active-account?token=".$token."";
+                        $body="Wiadomość automatyczna. Proszę na nią nie odpowiadać. Aktywuj konto: ". "http://156.17.42.119/active-account?token=".$token."";
                         $message = (new \Swift_Message("Aktywacja konta w serwisie Triaż App"))
                           ->setFrom(['triazapp@gmail.com' => 'Triaz App'])
                           ->setTo($email)

@@ -1,33 +1,39 @@
 <div class="fat-nav">
     <div class="wrapper">
         <ul>
-            <a class="fat-nav-link" href="/user/push-up">
-                <li> Test 1</li>
+            <a class="fat-nav-link" href="/user/profil/data-now">
+                <li> Aktualne pomiary dotyczące ranych w akcji</li>
             </a>
 
-            <a class="fat-nav-link" href="/user/squats">
-                <li> Test 2</li>
+            {# <a class="fat-nav-link" href="/user/profil/data-history">
+                <li> Historyczne pomiary ranych </li>
+            </a> #}
+
+            <br>
+            <a class="fat-nav-link" href="/user/profil/add-kam">
+                <li> Wprowadź KAM</li>
             </a>
 
-            <a class="fat-nav-link" href="/user/crunches">
-                 <li> Test 3</li>
+            <a class="fat-nav-link" href="/user/profil/remove-kam">
+                <li> Zakończ akcje KAM</li>
             </a>
 
-            <a class="fat-nav-link" href="/user/pull-up">
-                <li> Test 4</li>
+            <br>
+            <a class="fat-nav-link" href="/user/profil/add-zrm-to-action">
+                <li> Dodaj ratowników do akcji </li>
             </a>
 
-            <a class="fat-nav-link" href="/blog">
-                 <li><i class="fas fa-gift"></i> Procedura triaż</li>
+            <a class="fat-nav-link" href="/user/profil/show-zrm-in-action">
+                <li> Wyświetl ratowników biorących udział w akcji </li>
             </a>
 
             <br>
             <a class="fat-nav-link" href="/user/profil">
-                 <li><i class="far fa-user"></i> {{ app.user.username }}</li>
+                 <li><i class="far fa-user"></i> Użytkownik: {{ app.user.username }}</li>
             </a>
 
             <a class="fat-nav-link" href="/logout">
-                <li><i class="fas fa-sign-out-alt"></i> Sign Out</li>
+                <li><i class="fas fa-sign-out-alt"></i> Wyloguj się</li>
             </a>
         </ul>
      </div>  

@@ -1,0 +1,118 @@
+{% extends 'workout/baseWorkout.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('CSS/data-now/data-now.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script>
+
+
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
+        $(document).ready(function () {
+            var refreshID = setInterval(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/user/profil/data-now/ajax',
+                    success: function (data) { // Handle the return data (1 for refresh, 0 for no refresh)
+
+                        var row = "";
+                        for (let i = 0; i < data.ajaxResponseContactController[0]['responseFlag'].length; i++)
+                        {
+                            var g = data.ajaxResponseContactController[0]["responseFlag"][i]['data'].date;
+                            g = g.substring(0,19);
+                            
+                                                   
+                           
+
+                            //1
+                            row += '<tr><th>' + data.ajaxResponseContactController[0]["responseFlag"][i]['opaskaId']  + '</th><td>'; 
+                           
+                            //2
+                            if(data.ajaxResponseContactController[0]["responseFlag"][i]['ratownikId'])
+                                row += data.ajaxResponseContactController[0]["responseFlag"][i]['ratownikId']+ '</td><td>';
+                            else
+                                row +=" "+ '</td><td>';
+
+                            //3
+                            row += data.ajaxResponseContactController[0]["responseFlag"][i]['akcjaId']+ '</td><td>';
+                            
+                            //4
+                            if(data.ajaxResponseContactController[0]["responseFlag"][i]['szerokoscGeo'])
+                                row += data.ajaxResponseContactController[0]["responseFlag"][i]['szerokoscGeo']+ '</td><td>';
+                            else
+                                row +=" "+ '</td><td>';
+
+                            //5
+                            if (data.ajaxResponseContactController[0]["responseFlag"][i]['dlugoscGeo'])
+                                row += data.ajaxResponseContactController[0]["responseFlag"][i]['dlugoscGeo']+ '</td><td>';
+                            else
+                                row +=" "+ '</td><td>';
+                            
+                            //6
+                            row += data.ajaxResponseContactController[0]["responseFlag"][i]['tetno']+ '</td><td>';
+
+                            //7
+                            if (data.ajaxResponseContactController[0]["responseFlag"][i]['kolor'])
+                                row += data.ajaxResponseContactController[0]["responseFlag"][i]['kolor']+ '</td><td>';
+                            else
+                                row +=" "+ '</td><td>';
+                            //8
+                            row += g  + '</td></tr>';
+                        }
+                        
+                        // set the table body to the new html code
+                        document.getElementById("Customdata").innerHTML = row;
+
+                       
+                    }
+                });
+            }, (1000 * 10)); // Poll every 10 seconds.
+        });
+    </script>
+{% endblock %}
+
+
+{% block body %}
+
+
+    <main>
+        <h1>
+            Aktywnie działające opaski</h1>
+
+
+        <table class="table-data">
+            <thead>
+                <tr>
+                    <th scope="col">Id opaski</th>
+                    <th scope="col">Id ratownika</th>
+                    <th scope="col">Id akcji</th>
+                    <th scope="col">Sze. geograficzna</th>
+                    <th scope="col">Dłu. geograficzna</th>
+                    <th scope="col">Tętno</th>
+                    <th scope="col">Kolor</th>
+                    <th scope="col">Czas</th>
+                </tr>
+            </thead>
+            <tbody id="Customdata">
+                {% for rany in rani %}
+                    <tr>
+                        <th scope="row">{{rany.opaskaId}}</th>
+                        <td>{{rany.ratownikId}}</td>
+                        <td>{{rany.akcjaId}}</td>
+                        <td>{{rany.szerokoscGeo}}</td>
+                        <td>{{rany.dlugoscGeo}}</td>
+                        <td>{{rany.tetno}}</td>
+                        <td>{{rany.kolor}}</td>
+                        <td>{{rany.data|date("Y-m-d H:i:s", "Europe/Berlin") }}</td>
+                    </tr>
+                {% endfor %}
+
+
+            </tbody>
+        </table>
+    </main>
+
+
+{% endblock %}

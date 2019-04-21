@@ -1,0 +1,69 @@
+{% extends 'workout/baseWorkout.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('CSS/data-now/data-now.css') }}" rel="stylesheet"/>
+
+
+{% endblock %}
+
+{% block body %}
+
+    <main>
+        {% if dodanoRatownika|default(0) == 1 %}
+            <p>Pomyślnie dodano ratownika</p>
+        {% endif %}
+
+        <h1>
+            Dodaj dostępnego ratownika do akcji</h1>
+
+        {% if end|default(0) == 1 %}
+            <p>Brak prowadzonych akcji przez ciebie.
+            {% else %}
+
+                {% if nofree|default(0) == 1 %}
+                    <p> Brak wolnych ratowników </p>
+                {% else %}
+
+                        <p>Wolni ratownicy<p/>
+                            <table class="table-data">  
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nr</th>
+                                        <th scope="col">Użytkownik</th>
+                                        <th scope="col">Użytkownik Id</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Dodaj do Akcji</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="Customdata">
+                                    {% for freeUser in freeUsers|default(0) %}
+                                        <tr>
+                                            <th scope="row">{{ loop.index }}</th>
+                                            <td>{{freeUser.username}}</td>
+                                            <td>{{freeUser.id}}</td>
+                                            <td>{{freeUser.email}}</td>
+                                            <td>
+                                                <a href="/user/profil/add-zrm-to-action/{{freeUser.id|default(0)}}">
+                                                    <div>
+                                                        <i class="far fa-plus-square"></i>
+                                                    </div>
+                                                </a>
+
+                                            </td>
+
+
+                                        </tr>
+                                    {% endfor %}
+
+
+                                </tbody>
+                            </table>
+                {% endif %}
+
+
+                    {% endif %}
+
+                </main>
+
+
+            {% endblock %}

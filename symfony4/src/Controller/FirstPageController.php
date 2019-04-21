@@ -13,7 +13,7 @@ class FirstPageController extends AbstractController
     public function showFirstPage()
     {
         return $this->render('firstPage/firstPageIndex.html.twig', [ 
-            'namePage' => 'Syssitia App',
+            'namePage' => 'Triaż App',
         ]);
     }
  
