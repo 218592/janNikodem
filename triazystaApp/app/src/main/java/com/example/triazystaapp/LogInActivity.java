@@ -21,7 +21,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -58,7 +57,7 @@ public class LogInActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(LogInActivity.this, response, Toast.LENGTH_LONG).show();
-                        checkAccessPermission(response);
+                        checkAccessPermission(response, id);
                     }
                 },
                 new Response.ErrorListener() {
@@ -84,12 +83,13 @@ public class LogInActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    public void checkAccessPermission(String response) {
+    public void checkAccessPermission(String response, String id) {
 
         try {
             JSONObject jsonObject = new JSONObject(response);
             if (jsonObject.getString("status").equals("success")) {
                 Intent intent = new Intent(LogInActivity.this, MapsActivity.class);
+                intent.putExtra("idTriazysta", id);
                 startActivity(intent);
             }
         } catch (JSONException e) {
