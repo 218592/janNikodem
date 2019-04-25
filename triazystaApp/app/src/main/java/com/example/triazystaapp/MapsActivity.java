@@ -98,10 +98,22 @@ public class MapsActivity
                     String idTriazysta = intent.getStringExtra("idTriazysta");
                     EditText editText = findViewById(R.id.editText1);
                     String idOpaski = String.valueOf(editText.getText());
-                    String spinner = spin.getSelectedItem().toString();
-                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                    mGoogleMap.addMarker(new MarkerOptions().position(latLng));
-                    infoToDatabase(idOpaski, spinner, latLng, idTriazysta);
+                    if (!idOpaski.isEmpty()) {
+                        String spinner = spin.getSelectedItem().toString();
+                        float warning = 0;
+                        if (spinner.equals("zielony")) {
+                            warning = BitmapDescriptorFactory.HUE_GREEN;
+                        } else if (spinner.equals("czerwony")) {
+                            warning = BitmapDescriptorFactory.HUE_MAGENTA;
+                        } else if (spinner.equals("zolty")) {
+                            warning = BitmapDescriptorFactory.HUE_YELLOW;
+                        }
+                        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                        mGoogleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(warning)));
+                        infoToDatabase(idOpaski, spinner, latLng, idTriazysta);
+                    } else {
+                        Toast.makeText(MapsActivity.this, "Enter band id!", Toast.LENGTH_LONG).show();
+                    }
                 } else {
                     Toast.makeText(MapsActivity.this, "Wait till GPS start working!", Toast.LENGTH_LONG).show();
                 }
@@ -297,7 +309,6 @@ public class MapsActivity
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getApplicationContext(), colour[position], Toast.LENGTH_LONG).show();
     }
 
     @Override
