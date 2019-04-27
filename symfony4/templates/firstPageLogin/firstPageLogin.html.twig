@@ -3,23 +3,22 @@
 {# {% block title %}{% endblock %} #}
 
 {% block stylesheets %}
-    <link href="{{ asset('CSS/firstPage/firstPageLogin.css') }}" rel="stylesheet" />
-    <link href="{{ asset('CSS/firstPage/firstPageNav.css') }}" rel="stylesheet" />
+    <link href="{{ asset('CSS/firstPage/firstPageLogin.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('CSS/firstPage/firstPageNav.css') }}" rel="stylesheet"/>
 {% endblock %}
 
 {% block javascripts %}
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script crossorigin="anonymous" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script>
 
         $(document).ready(function () {
 
-            $(".toggle-password").click(function () {
-                //console.log("lol");
+            $(".toggle-password").click(function () { // console.log("lol");
                 $(this).toggleClass("fa-eye fa-eye-slash");
                 var input = $($(this).attr("toggle"));
                 if (input.attr("type") == "password") {
-                     input.attr("type", "text");
+                    input.attr("type", "text");
                 } else {
                     input.attr("type", "password");
                 }
@@ -51,20 +50,19 @@
                     <i class="fas fa-key"></i>
                 </div>
                 <span class="fa fa-fw fa-eye field-icon toggle-password" toggle="#password-field"></span>
-<input id="password-field" name="_password" onblur="this.placeholder='Hasło'" onfocus="this.placeholder=''" placeholder="Hasło" type="password">
+                <input id="password-field" name="_password" onblur="this.placeholder='Hasło'" onfocus="this.placeholder=''" placeholder="Hasło" type="password">
             </div>
 
             <button class="btn wave" id="submitMail" type="submit">ZALOGUJ SIĘ</button>
 
             {# csrf protection #}
-            <input
-            type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
             {#
                 If you want to control the URL the user
                 is redirected to on success (more details below)
                 <input type="hidden" name="_target_path" value="/account" />
-                #}
+            #}
 
             {% if error %}
                 <div class="error">
