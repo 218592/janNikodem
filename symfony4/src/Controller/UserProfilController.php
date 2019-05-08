@@ -48,8 +48,9 @@ class UserProfilController extends AbstractController
         $user = $this->getUser();
         $username = $user->getUsername();
 
+
         //selcet
-        $akcja = 1;
+        $akcja = $user->getAkcjaId();
         $query = $this->getDoctrine()
             ->getRepository(Rani::class)->createQueryBuilder('r')
             ->andWhere('r.akcjaId = :akcja and r.aktywnaOpaska = 1 and r.wAkcji = 1')
@@ -75,7 +76,7 @@ class UserProfilController extends AbstractController
     public function showDataNowAjax()
     {
         //selcet
-        $akcja = 1;
+        $akcja = $user->getAkcjaId();
         $query = $this->getDoctrine()
             ->getRepository(Rani::class)->createQueryBuilder('r')
             ->andWhere('r.akcjaId = :akcja and r.aktywnaOpaska = 1 and r.wAkcji = 1')
@@ -190,7 +191,7 @@ class UserProfilController extends AbstractController
 
             //wylącz opaski
             $query = $em->createQuery(
-                'UPDATE App\Entity\Rani r SET r.wAkcji=0 WHERE r.akcjaId = :idA'
+                'UPDATE App\Entity\Rani r SET r.wAkcji=0, r.nadawanie=0, r.aktywnaOpaska=0 WHERE r.akcjaId = :idA'
             )->setParameter('idA', $akcjaId);
             $result = $query->getResult();
 
