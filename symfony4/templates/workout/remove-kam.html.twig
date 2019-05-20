@@ -1,0 +1,32 @@
+{% extends 'workout/baseWorkout.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('CSS/data-now/data-now.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+
+    <main>
+        <h1>
+            Zakończ prowadzoną akcję jako KAM</h1>
+        {% if end|default(0) == 1 %}
+            {% if formIsOk|default(0) == 1 %}
+                <p>Zakończono prowadzoną akcję jako KAM</p>
+            {% else %}
+                <p>Brak prowadzonych akcji jako KAM</p>
+
+            {% endif %}
+        {% else %}
+            <form action="/user/profil/remove-kam" method="POST">
+                <br>Czy na pewno zakończyć akcję KAM?
+                <br><br>
+                <input type="submit" value="Zakończ akcję KAM">
+            </form>
+
+
+        {% endif %}
+
+
+    </main>
+
+{% endblock %}

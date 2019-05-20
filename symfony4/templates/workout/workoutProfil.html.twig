@@ -1,11 +1,50 @@
 {% extends 'workout/baseWorkout.html.twig' %}
 
 {% block stylesheets %}
-
+    <link href="{{ asset('CSS/data-now/data-now.css') }}" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
 
-witam witam
-   
+    <main>
+
+        <h1>
+            Obecni KAM biorący udział w akcji</h1>
+
+        {% if kams|default(0) %}
+            <table class="table-data">
+                <thead>
+                    <tr>
+                        <th scope="col">Nr</th>
+                        <th scope="col">Użytkownik</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Akcja id</th>
+                    </tr>
+                </thead>
+                <tbody id="Customdata">
+
+
+                    {% for kam in kams %}
+                        <th scope="row">
+                            {{ loop.index }}</th>
+                        <td>
+                            {{kam.username}}</td>
+                        <td>
+                            {{kam.email}}</td>
+                        <td>
+                            {{kam.akcja_id}}</td>
+                    {% endfor %}
+
+
+                </tbody>
+            </table>
+        {% else %}
+            <p>
+                Brak KAM biorących udział w akcji
+            </p>
+
+        {% endif %}
+
+    </main>
+
 {% endblock %}

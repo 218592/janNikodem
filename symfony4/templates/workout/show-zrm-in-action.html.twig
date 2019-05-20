@@ -1,0 +1,71 @@
+{% extends 'workout/baseWorkout.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('CSS/data-now/data-now.css') }}" rel="stylesheet"/>
+
+
+{% endblock %}
+
+{% block body %}
+
+    <main>
+        {% if usunietoRatownika|default(0) == 1 %}
+            <p>Pomyślnie usunieto ratownika</p>
+        {% endif %}
+
+        <h1>
+            Ratownicy biorący udział w twojej akcji</h1>
+
+        {% if end|default(0) == 1 %}
+            <p>Brak prowadzonych akcji przez ciebie.
+            {% else %}
+
+                <p>Twoi ratownicy<p/>
+                    <table class="table-data">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nr</th>
+                                <th scope="col">Ratownik Id</th>
+                                <th scope="col">Rola ratownika</th>
+                                <th scope="col">Akcja Id</th>
+                                <th scope="col">Usuń z akcji</th>
+                            </tr>
+                        </thead>
+                        <tbody id="Customdata">
+                            {% for freeUser in freeUsers|default(0) %}
+                                <tr>
+                                    <th scope="row">{{ loop.index }}</th>
+                                    <td>{{freeUser.ratownikId}}</td>
+                                    <td>{{freeUser.czy_Kam}}</td>
+                                    <td>{{freeUser.akcja_id}}</td>
+
+                                    {% if freeUser.czy_Kam == "Ratownik" %}
+                                        <td>
+                                            <a href="/user/profil/show-zrm-in-action/{{freeUser.ratownikId|default(0)}}/{{freeUser.id|default(0)}}">
+                                                <div>
+                                                    <i class="fas fa-trash"></i>
+                                                </div>
+                                            </a>
+
+                                        </td>
+                                    {% endif %}
+
+                                    {% if freeUser.czy_Kam == "KAM" %}
+                                        <td>Nie można usunąć</td>
+                                    {% endif %}
+
+
+                                </tr>
+                            {% endfor %}
+
+
+                        </tbody>
+                    </table>
+
+
+                {% endif %}
+
+            </main>
+
+
+        {% endblock %}
