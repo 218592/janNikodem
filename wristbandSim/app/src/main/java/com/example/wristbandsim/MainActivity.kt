@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         val startButton = findViewById<Button>(R.id.start)
         val stopButton = findViewById<Button>(R.id.stop)
         val bandIdView = findViewById<TextView>(R.id.band_id)
-        val idView = findViewById<TextView>(R.id.id)
+        //val idView = findViewById<TextView>(R.id.id)
         val pulseView = findViewById<TextView>(R.id.pulse)
 
         val spinner = findViewById<Spinner>(R.id.band_selector)
