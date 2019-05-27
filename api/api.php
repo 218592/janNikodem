@@ -221,11 +221,11 @@ function valid_update($injured_table, $conn, $id) {
 
 // Validate login request
 function valid_login($resc_table, $conn, $resc_id) {
-    $result = exec_query($conn, "select count(ratownik_id) as count from $resc_table where ratownik_id = $resc_id", TRUE);
+    $result = exec_query($conn, "select count(ratownik_id) as count from $resc_table where ratownik_id = $resc_id and w_akcji = true", TRUE);
     $valid = $result['count'];
 
     // Check if ready to login
-    if($valid != 1) {
+    if($valid < 1) {
         exit_json("No valid entry for rescuer ID $resc_id.");
     }
 }
@@ -243,7 +243,7 @@ if($_POST["secret"] == $api_secret) {
         $pass = "";
         $db = "myDB";
         $injured_table = "rani";
-        $resc_table = "ratownicy";
+        $resc_table = "ratownicy_wakcji";
 
         // Connect to DB
         $conn = mysqli_connect($host, $user, $pass) or exit_json("Connection failed.");

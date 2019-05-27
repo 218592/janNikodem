@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         val startButton = findViewById<Button>(R.id.start)
         val stopButton = findViewById<Button>(R.id.stop)
         val bandIdView = findViewById<TextView>(R.id.band_id)
-        val idView = findViewById<TextView>(R.id.id)
+        //val idView = findViewById<TextView>(R.id.id)
         val pulseView = findViewById<TextView>(R.id.pulse)
 
         val spinner = findViewById<Spinner>(R.id.band_selector)
@@ -82,13 +82,15 @@ class MainActivity : AppCompatActivity() {
                         id = jsonObject.getString("id")
                         //idView.text = "ID: $id"
                     } catch (e: Exception) {
-                        val jsonObject = JSONObject(response);
-                        val err = jsonObject.getString("error")
-                        idView.text = "Error: $err"
+                        //val jsonObject = JSONObject(response);
+                        //val err = jsonObject.getString("error")
+                        //idView.text = "Error: $err"
+                        Toast.makeText(this, "Błąd danych", Toast.LENGTH_SHORT).show()
                     }
                 },
                 Response.ErrorListener {
-                    //Toast.makeText(this, "Błąd", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Błąd", Toast.LENGTH_SHORT).show()
+                    //error -> Toast.makeText(this, error.toString(), Toast.LENGTH_SHORT).show()
                 }) {
                 override fun getBodyContentType(): String {
                     return "application/json"
@@ -159,7 +161,7 @@ class MainActivity : AppCompatActivity() {
 
                 },
                 Response.ErrorListener {
-                    //Toast.makeText(this, "Błąd", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Błąd", Toast.LENGTH_SHORT).show()
                 }) {
                 override fun getBodyContentType(): String {
                     return "application/json"
