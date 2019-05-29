@@ -75,6 +75,10 @@ class UserProfilController extends AbstractController
      */
     public function showDataNowAjax()
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user = $this->getUser();
+        $username = $user->getUsername();
+
         //selcet
         $akcja = $user->getAkcjaId();
         $query = $this->getDoctrine()

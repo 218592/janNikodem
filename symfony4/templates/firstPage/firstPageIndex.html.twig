@@ -3,7 +3,7 @@
 {# {% block title %}{% endblock %} #}
 
 {% block stylesheets %}
-<link href="{{ asset('CSS/firstPage/firstPageIndex.css') }}" rel="stylesheet" />
+    <link href="{{ asset('CSS/firstPage/firstPageIndex.css') }}" rel="stylesheet"/>
 {% endblock %}
 
 {% block body %}
@@ -11,37 +11,19 @@
     <section>
         <div class="parentMenuFirstPage">
 
-                
-        <a href="/triaz" class="childMenuFirstPage leftTop corner">
-            <label>
-                <div class="opacityImageBackgroundB"></div>
-                <h2>Procedura Triaż <i class="fas fa-sign-in-alt"></i> </h2>
-            </label>
-        </a>        
-                
 
-        <a href="/about" class="childMenuFirstPage rightTop corner">
-            <label>
-                <div class="opacityImageBackgroundA"></div>
-                <h2>O aplikacji <i class="fas fa-sign-in-alt"></i> </h2>
-            </label>
-        </a>
-
-        <a href="/user/profil" class="childMenuFirstPage leftBottom corner">
-            <label>
-                <div class="opacityImageBackgroundL"></div>
-                <h2>Zaloguj się <i class="fas fa-sign-in-alt"></i></h2>
-            </label>
-        </a>
-
-        <a href="contact" class="childMenuFirstPage rightBottom corner">
-            <label>
-                <div class="opacityImageBackgroundC"></div>
-                <h2>Kontakt <i class="fas fa-sign-in-alt"></i></h2>
-            </label>
-        </a>
+            <div class="buttons">
+                <a class="button" href="/user/profil">
+                    Zaloguj się
+                </a>
+                <br>
+                <br>
+                <a class="button" href="contact">
+                    Kontakt
+                </a>
+            </div>
 
         </div>
-    </section>   
+    </section>
 
 {% endblock %}
